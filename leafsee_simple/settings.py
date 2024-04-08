@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "apps.authentication",
 ]
+
+AUTH_USER_MODEL = "authentication.LeafseeUser"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
