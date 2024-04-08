@@ -25,6 +25,7 @@ runserver = "util_tools.scripts:runserver"
 lint = "util_tools.scripts:flake8"
 format = "util_tools.scripts:black"
 tailwind = "util_tools.scripts:tailwind"
+expreq = "util_tools.scripts:export_requirements"
 
 [build-system]
 requires = ["poetry-core"]

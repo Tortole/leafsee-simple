@@ -60,3 +60,18 @@ def tailwind():
         shell=True,
         check=False,
     )
+
+
+def export_requirements():
+    subprocess.run(
+        [
+            "poetry",
+            "export",
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements.txt",
+            "--without-hashes",
+        ],
+        check=False,
+    )
