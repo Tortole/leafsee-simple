@@ -1,0 +1,298 @@
+<!-- prettier-ignore -->
+{% load static %}
+{% load load_files %}
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'base/css/out.css' %}" />
+        <link
+            rel="shortcut icon"
+            type="image/png"
+            href="{% static 'base/img/favicon.png' %}"
+        />
+    </head>
+    <body>
+        <div
+            class="sticky left-0 top-0 z-10 flex h-12 w-full items-center justify-between bg-green-n px-5"
+        >
+            <div class="flex items-center">
+                <button class="float-left w-max">
+                    {% load_svg 'svg\burger_menu_button_2.svg' class='w-8' %}
+                </button>
+                <button
+                    class="cut-polygon-steep float-left ml-7 flex h-9 w-max items-center bg-green-l px-4"
+                >
+                    {% load_svg 'svg\leaf_icon_2.svg' class='w-7 float-left' %}
+                    <p
+                        class="float-left ml-2 text-center font-jockeyone text-3xl"
+                    >
+                        LeafSee
+                    </p>
+                </button>
+            </div>
+            <div class="cut-polygon-steep h-7 w-max">
+                <button
+                    class="float-left h-full bg-green-l pl-5 pr-3 text-center hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    {% load_svg 'svg\magnifier.svg' class='w-5' %}
+                </button>
+                <input
+                    type="text"
+                    class="float-left h-full w-[500px] pl-2 pr-5 outline-none"
+                    name="search"
+                    placeholder="Поиск"
+                />
+            </div>
+            {% if not user.is_authenticated %}
+            <div class="flex h-full w-max items-center justify-between gap-4">
+                <button>
+                    {% load_svg 'svg\notification_bell_2.svg' class='w-6' %}
+                </button>
+                <button
+                    class="cut-polygon-octagon flex size-8 items-center justify-center bg-white"
+                >
+                    {% load_svg 'svg\user_icon.svg' class='w-7' %}
+                </button>
+            </div>
+            {% else %}
+            <div class="flex h-full w-max items-center justify-between gap-5">
+                <button
+                    class="cut-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    Вход
+                </button>
+                <button
+                    class="cut-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    Регистрация
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        <aside
+            class="sticky left-0 top-12 z-10 flex h-[calc(100vh-3rem)] w-64 flex-col items-start gap-5 bg-green-l py-5"
+        >
+            <div class="flex w-full flex-col gap-3 px-3">
+                <button
+                    class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    Главная
+                </button>
+                <button
+                    class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    Подписки
+                </button>
+                <button
+                    class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    История
+                </button>
+                <button
+                    class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                >
+                    Понравившиеся
+                </button>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="h-px w-full bg-black"></div>
+            <div class="flex w-full flex-col gap-3 px-3">
+                <p class="text-left font-play text-3xl">Подписки</p>
+                <div>
+                    <button
+                        class="cut-polygon-steep flex w-full items-center justify-start gap-2 bg-green-l px-3 py-1 hover:bg-green-l-hover active:bg-green-l-onclick"
+                    >
+                        <div
+                            class="cut-polygon-octagon flex size-8 items-center justify-center bg-white"
+                        >
+                            {% load_svg 'svg\user_icon.svg' class='w-7' %}
+                        </div>
+                        <p class="font-play text-xl">Название канала</p>
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+        </aside>
+        <!-- block base is needed to manage menu show from child pages -->
+        <!-- prettier-ignore -->
+        {% block base %}
+        <main
+            class="absolute left-64 top-12 z-0 flex h-[calc(100vh-3rem)] w-[calc(100vw-16rem)] flex-col bg-gray-200"
+        >
+            {% block content %}{% endblock %}
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+            <p>asdf</p>
+        </main>
+        <!-- prettier-ignore -->
+        {% endblock base %}
+        <script
+            src="{% static 'base/js/jquery-3.7.1.js' %}"
+            type="text/javascript"
+        ></script>
+        {% block js %}{% endblock %}
+    </body>
+</html>

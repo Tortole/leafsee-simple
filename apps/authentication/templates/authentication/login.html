@@ -1,0 +1,18 @@
+<!-- prettier-ignore -->
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Вход {% endblock title%}
+
+<!-- This wonderful thing is needed to disable upper menu in base page -->
+<!-- prettier-ignore -->
+{% block base %}
+    {% with hide_menu=True %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock base %}
+
+
+{% block content %}
+
+<!-- prettier-ignore -->
+{% endblock content %}
