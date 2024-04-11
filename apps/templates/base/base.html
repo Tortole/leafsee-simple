@@ -20,11 +20,14 @@
             class="z-10 flex h-12 w-full items-center justify-between bg-green-n px-5"
         >
             <div class="flex items-center">
-                <button class="float-left w-max" onclick="toggleSidebar()">
+                <button
+                    class="clip-polygon-octagon float-left flex size-10 items-center justify-center hover:bg-green-l-hover active:bg-green-l-onclick"
+                    onclick="toggleSidebar()"
+                >
                     {% load_svg 'svg\burger_menu_button.svg' class='w-8' %}
                 </button>
                 <button
-                    class="cut-polygon-steep float-left ml-7 flex h-9 w-max items-center bg-green-l px-4"
+                    class="clip-polygon-steep float-left ml-5 flex h-9 w-max items-center bg-green-l px-4"
                 >
                     {% load_svg 'svg\leaf_icon.svg' class='w-7 float-left' %}
                     <p
@@ -34,7 +37,7 @@
                     </p>
                 </button>
             </div>
-            <div class="cut-polygon-steep h-7 w-max">
+            <div class="clip-polygon-steep h-7 w-max">
                 <button
                     class="float-left h-full bg-green-l pl-5 pr-3 text-center hover:bg-green-l-hover active:bg-green-l-onclick"
                 >
@@ -53,7 +56,7 @@
                     {% load_svg 'svg\notification_bell.svg' class='w-6' %}
                 </button>
                 <button
-                    class="cut-polygon-octagon flex size-8 items-center justify-center bg-white"
+                    class="clip-polygon-octagon flex size-8 items-center justify-center bg-white"
                 >
                     {% load_svg 'svg\user_icon.svg' class='w-7' %}
                 </button>
@@ -61,12 +64,12 @@
             {% else %}
             <div class="flex h-full w-max items-center justify-between gap-5">
                 <button
-                    class="cut-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
+                    class="clip-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
                 >
                     Вход
                 </button>
                 <button
-                    class="cut-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
+                    class="clip-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
                 >
                     Регистрация
                 </button>
@@ -80,22 +83,22 @@
             >
                 <div class="flex w-full flex-col gap-3 px-3">
                     <button
-                        class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                        class="clip-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
                     >
                         Главная
                     </button>
                     <button
-                        class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                        class="clip-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
                     >
                         Подписки
                     </button>
                     <button
-                        class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                        class="clip-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
                     >
                         История
                     </button>
                     <button
-                        class="cut-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
+                        class="clip-polygon-steep h-max w-full bg-green-l px-4 text-left font-play text-2xl hover:bg-green-l-hover active:bg-green-l-onclick"
                     >
                         Понравившиеся
                     </button>
@@ -106,10 +109,10 @@
                     <p class="text-left font-play text-3xl">Подписки</p>
                     <div>
                         <button
-                            class="cut-polygon-steep flex w-full items-center justify-start gap-2 bg-green-l px-3 py-1 hover:bg-green-l-hover active:bg-green-l-onclick"
+                            class="clip-polygon-steep flex w-full items-center justify-start gap-2 bg-green-l px-3 py-1 hover:bg-green-l-hover active:bg-green-l-onclick"
                         >
                             <div
-                                class="cut-polygon-octagon flex size-8 items-center justify-center bg-white"
+                                class="clip-polygon-octagon flex size-8 items-center justify-center bg-white"
                             >
                                 {% load_svg 'svg\user_icon.svg' class='w-7' %}
                             </div>

@@ -29,7 +29,7 @@
     font-variant: normal;
 }
 
-.cut-polygon-steep {
+.clip-polygon-steep {
     clip-path: polygon(
         20px 0%,
         calc(100% - 20px) 0%,
@@ -42,7 +42,7 @@
     );
 }
 
-.cut-polygon-octagon {
+.clip-polygon-octagon {
     clip-path: polygon(
         30% 0%,
         70% 0%,

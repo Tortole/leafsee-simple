@@ -617,22 +617,6 @@ video {
     position: relative;
 }
 
-.sticky {
-    position: sticky;
-}
-
-.left-0 {
-    left: 0px;
-}
-
-.left-64 {
-    left: 16rem;
-}
-
-.top-0 {
-    top: 0px;
-}
-
 .top-12 {
     top: 3rem;
 }
@@ -655,6 +639,14 @@ video {
 
 .ml-7 {
     margin-left: 1.75rem;
+}
+
+.ml-6 {
+    margin-left: 1.5rem;
+}
+
+.ml-5 {
+    margin-left: 1.25rem;
 }
 
 .block {
@@ -700,6 +692,16 @@ video {
 .size-8 {
     width: 2rem;
     height: 2rem;
+}
+
+.size-9 {
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.size-10 {
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .h-12 {
@@ -759,10 +761,6 @@ video {
     width: 500px;
 }
 
-.w-\[calc\(100vw-16rem\)\] {
-    width: calc(100vw - 16rem);
-}
-
 .w-full {
     width: 100%;
 }
@@ -770,10 +768,6 @@ video {
 .w-max {
     width: -moz-max-content;
     width: max-content;
-}
-
-.w-auto {
-    width: auto;
 }
 
 .flex-grow {
@@ -826,10 +820,6 @@ video {
 
 .overflow-auto {
     overflow: auto;
-}
-
-.overflow-x-auto {
-    overflow-x: auto;
 }
 
 .truncate {
@@ -1043,7 +1033,7 @@ video {
     font-variant: normal;
 }
 
-.cut-polygon-steep {
+.clip-polygon-steep {
     -webkit-clip-path: polygon(
         20px 0%,
         calc(100% - 20px) 0%,
@@ -1066,7 +1056,7 @@ video {
     );
 }
 
-.cut-polygon-octagon {
+.clip-polygon-octagon {
     -webkit-clip-path: polygon(
         30% 0%,
         70% 0%,
