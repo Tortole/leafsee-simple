@@ -14,6 +14,8 @@ module.exports = {
                 "green-ll-hover": "#C6FFCE",
                 "green-ll-onclick": "#6CB877",
                 "red-l": "#FF7474",
+                "gray-n": "#EDEDED",
+                "gray-d": "#BABABA",
             },
             fontFamily: {
                 play: ["Play"],
