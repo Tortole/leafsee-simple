@@ -17,7 +17,7 @@
     </head>
     <body>
         <div
-            class="z-30 flex h-12 w-full items-center justify-between bg-green-n px-5"
+            class="z-10 flex h-12 w-full items-center justify-between bg-green-n px-5"
         >
             <div class="flex items-center">
                 <button
@@ -50,7 +50,7 @@
                     placeholder="Поиск"
                 />
             </div>
-            {% if not user.is_authenticated %}
+            {% if user.is_authenticated %}
             <div class="flex h-full w-max items-center justify-between gap-4">
                 <button onclick="toggleElement('baseNotifications')">
                     {% load_svg 'svg\notification_bell.svg' class='w-6' %}
@@ -80,7 +80,7 @@
         <div class="top-12 flex h-[calc(100vh-3rem)] w-full">
             <aside
                 id="baseSidebar"
-                class="z-30 flex w-64 flex-col items-start gap-5 overflow-auto bg-green-l py-5"
+                class="z-10 flex w-64 flex-col items-start gap-5 overflow-auto bg-green-l py-5"
             >
                 <div class="flex w-full flex-col gap-3 px-3">
                     <button
@@ -132,7 +132,7 @@
         </div>
         <div
             id="baseNotifications"
-            class="clip-polygon-right absolute right-8 top-16 z-50 flex h-[520px] w-[400px] items-center justify-center bg-green-l"
+            class="clip-polygon-right absolute right-8 top-16 z-20 flex h-[520px] w-[400px] items-center justify-center bg-green-l"
         >
             <div
                 class="clip-polygon-right h-[calc(100%-4px)] w-[calc(100%-4px)] bg-green-ll"
@@ -166,7 +166,7 @@
         </div>
         <div
             id="baseAccountSubmenu"
-            class="clip-polygon-right absolute right-4 top-16 z-50 flex h-[400px] w-[220px] items-center justify-center bg-green-l"
+            class="clip-polygon-right absolute right-4 top-16 z-20 flex h-[400px] w-[220px] items-center justify-center bg-green-l"
         >
             <div
                 class="clip-polygon-right flex h-[calc(100%-4px)] w-[calc(100%-4px)] flex-col items-center justify-start gap-1 bg-green-ll py-3"
