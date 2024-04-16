@@ -17,6 +17,7 @@
     </head>
     <body>
         <div
+            id="baseTopbar"
             class="z-10 flex h-12 w-full items-center justify-between bg-green-n px-5"
         >
             <div class="flex items-center">
@@ -66,11 +67,13 @@
             <div class="flex h-full w-max items-center justify-between gap-5">
                 <button
                     class="clip-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
+                    onclick="toggleElement('loginWrapper')"
                 >
                     Вход
                 </button>
                 <button
                     class="clip-polygon-steep h-7 w-[140px] bg-green-l px-4 font-play hover:bg-green-l-hover active:bg-green-l-onclick"
+                    onclick="toggleElement('registrationWrapper')"
                 >
                     Регистрация
                 </button>
@@ -78,7 +81,7 @@
             {% endif %}
         </div>
         <div class="top-12 flex h-[calc(100vh-3rem)] w-full">
-            <aside
+            <div
                 id="baseSidebar"
                 class="z-10 flex w-64 flex-col items-start gap-5 overflow-auto bg-green-l py-5"
             >
@@ -122,14 +125,12 @@
                     </div>
                 </div>
                 {% endif %}
-            </aside>
-            <!-- block base is needed to manage menu show from child pages -->
-            <!-- prettier-ignore -->
-            {% block base %}
-            <main class="z-0 h-full flex-grow overflow-auto bg-gray-200 p-4">
+            </div>
+            <main class="z-0 h-full flex-grow overflow-auto bg-gray-n p-4">
                 {% block content %}{% endblock %}
             </main>
         </div>
+
         <div
             id="baseNotifications"
             class="clip-polygon-right absolute right-8 top-16 z-20 flex h-[520px] w-[400px] items-center justify-center bg-green-l"
@@ -164,6 +165,7 @@
                 {% endif %}
             </div>
         </div>
+
         <div
             id="baseAccountSubmenu"
             class="clip-polygon-right absolute right-4 top-16 z-20 flex h-[400px] w-[220px] items-center justify-center bg-green-l"
@@ -188,8 +190,32 @@
                 </button>
             </div>
         </div>
-        <!-- prettier-ignore -->
-        {% endblock base %}
+
+        <div
+            id="loginWrapper"
+            class="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-10"
+            onclick="toggleElement('loginWrapper')"
+        >
+            <div
+                class="clip-polygon-right z-[110] size-max"
+                onclick="stopPropagation(event)"
+            >
+                <div class="flex h-max w-full flex-row bg-gray-d">
+                    <div
+                        class="clip-polygon-right-top w-1/2 bg-gray-n py-3 text-center font-play text-3xl"
+                    >
+                        Вход
+                    </div>
+                    <button class="w-1/2 py-3 font-play text-3xl">
+                        Регистрация
+                    </button>
+                </div>
+                <div class="size-max min-w-[500px] bg-gray-n p-5">
+                    {% include 'authentication/login.html' %}
+                </div>
+            </div>
+        </div>
+
         <script
             src="{% static 'base/js/jquery-3.7.1.js' %}"
             type="text/javascript"
