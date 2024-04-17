@@ -193,7 +193,7 @@
 
         <div
             id="loginWrapper"
-            class="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-10"
+            class="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-24"
             onclick="toggleElement('loginWrapper')"
         >
             <div
@@ -206,11 +206,16 @@
                     >
                         Вход
                     </div>
-                    <button class="w-1/2 py-3 font-play text-3xl">
+                    <button
+                        class="w-1/2 py-3 font-play text-3xl"
+                        onclick="switchLoginRegister()"
+                    >
                         Регистрация
                     </button>
                 </div>
-                <div class="size-max min-w-[500px] bg-gray-n p-5">
+                <div
+                    class="size-max min-h-[300px] min-w-[800px] bg-gray-n p-14"
+                >
                     {% include 'authentication/login.html' %}
                 </div>
             </div>
