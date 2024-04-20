@@ -26,6 +26,7 @@ lint = "util_tools.scripts:flake8"
 format = "util_tools.scripts:black"
 tailwind = "util_tools.scripts:tailwind"
 expreq = "util_tools.scripts:export_requirements"
+createuser = "util_tools.scripts:create_user"
 
 [build-system]
 requires = ["poetry-core"]
