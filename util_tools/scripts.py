@@ -75,3 +75,7 @@ def export_requirements():
         ],
         check=False,
     )
+
+
+def create_user():
+    subprocess.run(["poetry", "run", "python", "manage.py", "createuser"], check=False)
