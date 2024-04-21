@@ -1,5 +1,5 @@
 """
-URL configuration for leafsee_simple project.
+# URL configuration for leafsee_simple project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -16,13 +16,15 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from django.views.generic import TemplateView
 
 # !!!
 from django.views.generic import TemplateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # !!!
-    path("temp/", TemplateView.as_view(template_name="base/base.html")),
+    path("", TemplateView.as_view(template_name="base/base.html"), name="main"),
+    path("auth/", include("apps.authentication.urls")),
 ]

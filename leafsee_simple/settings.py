@@ -48,6 +48,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "authentication.LeafseeUser"
 
+AUTHENTICATION_BACKENDS = [
+    "apps.authentication.backends.UsernameEmailAuthenticationBackend",
+]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
