@@ -191,6 +191,7 @@
             </div>
         </div>
 
+        {% if not user.is_authenticated %}
         <div
             id="loginWrapper"
             class="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-24"
@@ -220,6 +221,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <script
             src="{% static 'base/js/jquery-3.7.1.js' %}"

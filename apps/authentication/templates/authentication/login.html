@@ -1,4 +1,9 @@
-<from class="flex flex-col items-center gap-5">
+<form
+    class="flex flex-col items-center gap-5"
+    method="POST"
+    action="{% url 'login' %}"
+>
+    {% csrf_token %}
     <div class="clip-polygon-steep size-max bg-green-l p-[2px]">
         <div class="clip-polygon-steep flex flex-row">
             <label
@@ -32,8 +37,10 @@
     </div>
 
     <button
-        class="clip-polygon-steep w-36 bg-green-l font-play text-xl hover:bg-green-l-hover active:bg-green-l-onclick"
+        class="clip-polygon-steep w-36 bg-green-l font-play text-xl outline-none hover:bg-green-l-hover active:bg-green-l-onclick"
+        type="submit"
     >
         Вход
     </button>
-</from>
+    <input type="hidden" name="next" value="{% url 'main' %}" />
+</form>

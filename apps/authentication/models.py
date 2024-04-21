@@ -6,6 +6,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
+import datetime
+
 from .validators import (
     UsernameValidator,
     NicknameValidator,
@@ -44,7 +46,15 @@ class LeafseeUser(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
-    email = models.EmailField("email", max_length=140)
+    email = models.EmailField(
+        "email",
+        max_length=140,
+        unique=True,
+        error_messages={
+            "unique": _("A user with that e-mail already exists."),
+        },
+        blank=True,
+    )
 
     first_name = models.CharField(
         "first name",
@@ -66,7 +76,9 @@ class LeafseeUser(AbstractUser):
     )
 
     description = models.TextField("self-description")
-    password_change_date = models.DateField("last password change date")
+    password_change_date = models.DateField(
+        "last password change date", default=datetime.date.today
+    )
     avatar = models.ImageField()
 
     subscriptions = models.ManyToManyField(
@@ -74,6 +86,8 @@ class LeafseeUser(AbstractUser):
         through="Subscriptions",
         through_fields=("subscriber", "content_creator"),
     )
+
+    REQUIRED_FIELDS = ["email"]
 
 
 class Subscriptions(models.Model):
