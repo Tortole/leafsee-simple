@@ -1,10 +1,19 @@
 <form
+    id="login-form"
     class="flex flex-col items-center gap-5"
     method="POST"
     action="{% url 'login' %}"
 >
     {% csrf_token %}
-    <div class="clip-polygon-steep size-max bg-green-l p-[2px]">
+    <p
+        id="login-error-text"
+        class="w-[500px] text-left font-play text-red-l"
+    ></p>
+
+    <div
+        id="login-login-inputwraper"
+        class="clip-polygon-steep login-inputwraper size-max bg-green-l p-[2px]"
+    >
         <div class="clip-polygon-steep flex flex-row">
             <label
                 class="h-full w-[210px] bg-green-l text-center font-play"
@@ -16,11 +25,15 @@
                 class="w-[350px] pl-2 pr-5 outline-none"
                 type="text"
                 name="login"
+                required
             />
         </div>
     </div>
 
-    <div class="clip-polygon-steep size-max bg-green-l p-[2px]">
+    <div
+        id="login-password-inputwraper"
+        class="clip-polygon-steep login-inputwraper size-max bg-green-l p-[2px]"
+    >
         <div class="clip-polygon-steep flex flex-row">
             <label
                 class="h-full w-[210px] bg-green-l text-center font-play"
@@ -32,6 +45,7 @@
                 class="w-[350px] pl-2 pr-5 outline-none"
                 type="password"
                 name="password"
+                required
             />
         </div>
     </div>

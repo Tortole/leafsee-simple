@@ -3,8 +3,8 @@ Module with views for authentication app
 """
 
 from django.views import View
-from django.shortcuts import redirect
 from django.urls import reverse
+from django.http import JsonResponse
 
 from django.contrib.auth import login as auth_login
 
@@ -17,7 +17,7 @@ class LoginView(View):
     Accepts only post requests.
     """
 
-    template_name = "authentication/login.html"
+    template_name = "authentication/login_form.html"
     authentication_form = LoginForm
 
     http_method_names = ["post"]
@@ -36,17 +36,17 @@ class LoginView(View):
         login = request.POST["login"]
         if "@" in login:
             # If login field contain e-mail
+            form_data["username"] = None
             form_data["email"] = login
         else:
             # If login field contain username
             form_data["username"] = login
+            form_data["email"] = None
 
         form = self.authentication_form(request, data=form_data)
 
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect(next_page)
+            return JsonResponse({"success": True, "next_page": next_page})
         else:
-            # !!! add error handler
-            print(form.errors.as_json())
-            return redirect(reverse("main"))
+            return JsonResponse({"success": False, "errors": form.errors})
