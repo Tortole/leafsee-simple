@@ -1,7 +1,7 @@
-hideElement("baseNotifications");
-hideElement("baseAccountSubmenu");
+hideElement("base-notifications");
+hideElement("base-account-submenu");
 
-hideElement("loginWrapper");
+hideElement("login-form-wrapper");
 
 function toggleElement(elementId) {
     let element = $(`#${elementId}`);
