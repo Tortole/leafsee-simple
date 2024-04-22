@@ -37,15 +37,17 @@ class LeafseeUser(AbstractUser):
             date_joined - DateTimeField - date when user's account was created
     """
 
+    username_validators = [UsernameValidator()]
     username = models.CharField(
         "username",
         max_length=140,
         unique=True,
-        validators=[UsernameValidator()],
+        validators=username_validators,
         error_messages={
             "unique": _("A user with that username already exists."),
         },
     )
+
     email = models.EmailField(
         "email",
         max_length=140,

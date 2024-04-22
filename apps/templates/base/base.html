@@ -1,4 +1,6 @@
+{% comment %}
 <!-- prettier-ignore -->
+{% endcomment %}
 {% load static %}
 {% load load_files %}
 
@@ -217,7 +219,7 @@
                 <div
                     class="size-max min-h-[300px] min-w-[800px] bg-gray-n p-14"
                 >
-                    {% include 'authentication/login.html' %}
+                    {% include 'authentication/login_form.html' %}
                 </div>
             </div>
         </div>
@@ -231,6 +233,15 @@
             src="{% static 'base/js/base.js' %}"
             type="text/javascript"
         ></script>
+        {% if not user.is_authenticated %}
+        <script
+            src="{% static 'authentication/js/login_form.js' %}"
+            type="text/javascript"
+        ></script>
+        {% comment %}
+        <!-- prettier-ignore -->
+        {% endcomment %}
+        {% endif %}
         {% block js %}{% endblock %}
     </body>
 </html>

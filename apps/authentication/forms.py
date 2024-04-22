@@ -32,6 +32,9 @@ class LoginForm(forms.ModelForm):
         self.fields["username"].required = False
         self.fields["email"].required = False
 
+        # Append validators
+        self.fields["username"].validators.append(*LeafseeUser.username_validators)
+
     def clean(self):
         """
         Validate fields and authenticate
@@ -40,13 +43,13 @@ class LoginForm(forms.ModelForm):
         username = self.cleaned_data.get("username")
         password = self.cleaned_data.get("password")
 
-        if not username and not email:
+        if not self.data["username"] and not self.data["email"]:
+            # Raise validation error if neither username nor email has been passed
             raise ValidationError(
-                _("Even one of username or e-mail should have a value."),
+                {"username": _("Even one of username or e-mail should have a value.")},
                 code="required",
             )
-
-        if (username or email) and password:
+        elif (username or email) and password:
             self.user_cache = authenticate(
                 self.request, username=username, email=email, password=password
             )
