@@ -6,6 +6,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import LeafseeUser
 
@@ -71,3 +72,10 @@ class LoginForm(forms.ModelForm):
         Get authenticated user
         """
         return self.user_cache
+
+
+class RegistrationForm(UserCreationForm):
+
+    class Meta:
+        model = LeafseeUser
+        fields = ["username", "email", "nickname", "first_name", "last_name"]

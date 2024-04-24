@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-22 15:08+0800\n"
+"POT-Creation-Date: 2024-04-24 17:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,65 +16,63 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-#: .\apps\authentication\forms.py:45
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\apps\authentication\forms.py:50
 msgid "Even one of username or e-mail should have a value."
 msgstr "Должно быть указанно либо имя пользователя, либо e-mail."
 
-#: .\apps\authentication\forms.py:55
+#: .\apps\authentication\forms.py:59
 msgid "Not valid username, e-mail or password."
 msgstr "Не верные имя пользователя, e-mail или пароль."
 
-#: .\apps\authentication\forms.py:60
+#: .\apps\authentication\forms.py:64
 msgid "This account is inactive."
 msgstr "Этот аккаунт неактивен"
 
-#: .\apps\authentication\models.py:46
+#: .\apps\authentication\models.py:47
 msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем пользователя уже существует."
 
-#: .\apps\authentication\models.py:54
+#: .\apps\authentication\models.py:57
 msgid "A user with that e-mail already exists."
 msgstr "Пользователь с таким e-mail уже существует."
 
-#: .\apps\authentication\validators.py:15
+#: .\apps\authentication\validators.py:17
 msgid ""
-"Enter a valid username. This value may contain only letters, numbers, and "
-"following characters: -_"
+"Invalid username: may contain only latin letters, numbers, and following "
+"characters: -_"
 msgstr ""
-"Введите правильное имя пользователя. Имя пользователя может содержать латинские буквы, цифры и "
+"Неверное имя пользователя: может содержать только латинские буквы, цифры и "
 "следующие символы: -_"
 
-#: .\apps\authentication\validators.py:25
+#: .\apps\authentication\validators.py:27
+#, python-format
 msgid ""
-"Enter a valid nickname. This value may contain only letters, numbers, and "
-"following characters: @#$%^&*-_=+*"
+"Invalid nickname: may contain only latin letters, numbers, and following "
+"characters: @#$%%^&*-_=+*"
 msgstr ""
-"Введите правильный никнейм. Никнейм может содержать латинские буквы, цифры и "
-"следующие символы: @#$%^&*-_=+*"
+"Неверный никнейм: может содержать только латинские буквы, цифры и следующие "
+"символы: @#$%%^&*-_=+*"
 
-#: .\apps\authentication\validators.py:39
+#: .\apps\authentication\validators.py:40
 msgid ""
-"Enter a valid first name. This value may contain only letters and space "
-"character."
+"Invalid first name: may contain only letters, numbers and space character."
 msgstr ""
-"Введите правильное имя. Имя может содержать буквы и символ "
-"пробела."
+"Неверное имя: может содержать только буквы, цифры и символ пробела."
 
-#: .\apps\authentication\validators.py:47
+#: .\apps\authentication\validators.py:45
 msgid ""
-"Enter a valid last name. This value may contain only letters and space "
-"character."
+"Invalid last name: may contain only letters, numbers and space character."
 msgstr ""
-"Введите правильную фамилию. Фамилия может содержать буквы и символ "
-"пробела."
+"Неверная фамилия: может содержать только буквы, цифры и символ пробела."
 
-#: .\leafsee_simple\settings.py:123
+#: .\leafsee_simple\settings.py:122
 msgid "English"
 msgstr "Английский"
 
-#: .\leafsee_simple\settings.py:124
+#: .\leafsee_simple\settings.py:123
 msgid "Russian"
 msgstr "Русский"

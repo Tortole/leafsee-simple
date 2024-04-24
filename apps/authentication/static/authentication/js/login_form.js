@@ -1,6 +1,3 @@
-let inputDefaultColorClass = "bg-green-l";
-let inputErrorColorClass = "bg-red-l";
-
 $("#login-form").submit(function (e) {
     e.preventDefault();
 
@@ -11,12 +8,12 @@ $("#login-form").submit(function (e) {
         dataType: "json",
         success: function (response) {
             clearColorLoginInputs();
-            clearErrorText();
+            clearLoginErrorText();
             if (response.success) {
                 window.location.href = response.next_page;
             } else {
                 $.each(response.errors, function (error_name, error) {
-                    addErrorText(error[0]);
+                    addLoginErrorText(error[0]);
                     switch (error_name) {
                         case "__all__":
                             colorErrorLoginInput("login-login-inputwraper");
@@ -54,11 +51,10 @@ function colorErrorLoginInput(inputWrapperId) {
         .addClass(inputErrorColorClass);
 }
 
-function clearErrorText() {
+function clearLoginErrorText() {
     $("#login-error-text").text("");
 }
 
-function addErrorText(errorText) {
-    let errorPanel = $("#login-error-text");
-    errorPanel.text(errorPanel.text() + "\n" + errorText);
+function addLoginErrorText(errorText) {
+    $("#login-error-text").append(`<p>${errorText}</p>`);
 }
