@@ -29,32 +29,6 @@
     font-variant: normal;
 }
 
-.clip-polygon-steep {
-    clip-path: polygon(
-        20px 0%,
-        calc(100% - 20px) 0%,
-        100% 10px,
-        100% calc(100% - 10px),
-        calc(100% - 20px) 100%,
-        20px 100%,
-        0% calc(100% - 10px),
-        0% 10px
-    );
-}
-
-.clip-polygon-right {
-    clip-path: polygon(
-        20px 0%,
-        calc(100% - 20px) 0%,
-        100% 20px,
-        100% calc(100% - 20px),
-        calc(100% - 20px) 100%,
-        20px 100%,
-        0% calc(100% - 20px),
-        0% 20px
-    );
-}
-
 .clip-polygon-right-top {
     clip-path: polygon(
         20px 0%,

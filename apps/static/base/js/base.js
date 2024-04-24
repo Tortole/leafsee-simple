@@ -1,7 +1,11 @@
+let inputDefaultColorClass = "bg-green-l";
+let inputErrorColorClass = "bg-red-l";
+
 hideElement("base-notifications");
 hideElement("base-account-submenu");
 
 hideElement("login-form-wrapper");
+hideElement("registration-form-wrapper");
 
 function toggleElement(elementId) {
     let element = $(`#${elementId}`);
@@ -22,4 +26,20 @@ function hideElement(elementId) {
 
 function stopPropagation(event) {
     event.stopPropagation();
+}
+
+function switchLoginRegister() {
+    let login = $("#login-form-wrapper");
+    let registration = $("#registration-form-wrapper");
+
+    // If login is hide, then show login and hide registration
+    if (login.css("display") == "none") {
+        login.css("display", "");
+        registration.css("display", "none");
+    }
+    // otherwise hide login and show registration
+    else {
+        login.css("display", "none");
+        registration.css("display", "");
+    }
 }

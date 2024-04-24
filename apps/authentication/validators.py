@@ -6,44 +6,44 @@ from django.core import validators
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext_lazy as _
 
+from re import UNICODE as re_UNICODE
+
 
 @deconstructible
 class UsernameValidator(validators.RegexValidator):
-    regex = r"^[\w\-_]+\Z"
+    regex = r"^[a-zA-Z0-9\-_]+\Z"
     flags = 0
     message = _(
-        "Enter a valid username. "
-        "This value may contain only letters, numbers, and following characters: -_"
+        "Invalid username: may contain only latin letters, numbers, and "
+        "following characters: -_"
     )
 
 
 @deconstructible
 class NicknameValidator(validators.RegexValidator):
-    regex = r"^[\w.@#$%^&*\-_=+*]+\Z"
+    regex = r"^[a-zA-Z0-9.@#$%^&*\-_=+*]+\Z"
     flags = 0
     message = _(
-        "Enter a valid nickname. "
-        "This value may contain only letters, numbers, and following characters: @#$%^&*-_=+*"
+        "Invalid nickname: may contain only latin letters, numbers, and "
+        "following characters: @#$%%^&*-_=+*"
     )
 
 
 @deconstructible
 class FullNameValidator(validators.RegexValidator):
     regex = r"^[\w]+\Z"
-    flags = 0
+    flags = re_UNICODE
 
 
 @deconstructible
 class FirstNameValidator(FullNameValidator):
     message = _(
-        "Enter a valid first name. "
-        "This value may contain only letters and space character."
+        "Invalid first name: may contain only letters, numbers and space character."
     )
 
 
 @deconstructible
 class LastNameValidator(FullNameValidator):
     message = _(
-        "Enter a valid last name. "
-        "This value may contain only letters and space character."
+        "Invalid last name: may contain only letters, numbers and space character."
     )

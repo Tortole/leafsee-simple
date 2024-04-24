@@ -1,8 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
     content: ["apps/**/*.{html,js}"],
-    plugins: [],
     theme: {
+        clipPolygonSliceSize: {
+            1: "10px",
+            2: "20px",
+            3: "30px",
+            4: "40px",
+            8: "80px",
+        },
         extend: {
             colors: {
                 "green-leaf": "#39B54A",
@@ -23,4 +32,45 @@ module.exports = {
             },
         },
     },
+    plugins: [
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    "clip-polygon-steep": (value) => ({
+                        "clip-path": `polygon(
+                        ${value} 0%,
+                        calc(100% - ${value}) 0%,
+                        100% ${stringDivider(value, 2)},
+                        100% calc(100% - ${stringDivider(value, 2)}),
+                        calc(100% - ${value}) 100%,
+                        ${value} 100%,
+                        0% calc(100% - ${stringDivider(value, 2)}),
+                        0% ${stringDivider(value, 2)}
+                    )`,
+                    }),
+                    "clip-polygon-right": (value) => ({
+                        "clip-path": `polygon(
+                        ${value} 0%,
+                        calc(100% - ${value}) 0%,
+                        100% ${value},
+                        100% calc(100% - ${value}),
+                        calc(100% - ${value}) 100%,
+                        ${value} 100%,
+                        0% calc(100% - ${value}),
+                        0% ${value}
+                    )`,
+                    }),
+                },
+                { values: theme("clipPolygonSliceSize") },
+            );
+        }),
+    ],
 };
+
+function stringDivider(stringNumerator, numericalDenominator) {
+    // Divide number with measurement unit symbols
+    let numeratorNumber = stringNumerator.match(/-?\d+\.?\d*/)[0];
+    let numeratorUnit = stringNumerator.match(/[a-z%]*$/)[0];
+
+    return numeratorNumber / numericalDenominator + numeratorUnit;
+}

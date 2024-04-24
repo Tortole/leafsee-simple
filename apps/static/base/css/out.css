@@ -844,12 +844,8 @@ video {
     width: max-content;
 }
 
-.w-\[300px\] {
-    width: 300px;
-}
-
-.w-\[340px\] {
-    width: 340px;
+.w-44 {
+    width: 11rem;
 }
 
 .min-w-\[800px\] {
@@ -974,6 +970,10 @@ video {
     --tw-bg-opacity: 0.5;
 }
 
+.p-10 {
+    padding: 2.5rem;
+}
+
 .p-14 {
     padding: 3.5rem;
 }
@@ -984,6 +984,18 @@ video {
 
 .p-\[2px\] {
     padding: 2px;
+}
+
+.p-1 {
+    padding: 0.25rem;
+}
+
+.p-\[1px\] {
+    padding: 1px;
+}
+
+.p-5 {
+    padding: 1.25rem;
 }
 
 .px-3 {
@@ -1087,6 +1099,11 @@ video {
     line-height: 1.75rem;
 }
 
+.text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
 .font-bold {
     font-weight: 700;
 }
@@ -1154,6 +1171,52 @@ video {
         var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.clip-polygon-right-2 {
+    -webkit-clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 20px,
+        100% calc(100% - 20px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 20px),
+        0% 20px
+    );
+    clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 20px,
+        100% calc(100% - 20px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 20px),
+        0% 20px
+    );
+}
+
+.clip-polygon-steep-2 {
+    -webkit-clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 10px,
+        100% calc(100% - 10px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 10px),
+        0% 10px
+    );
+    clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 10px,
+        100% calc(100% - 10px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 10px),
+        0% 10px
+    );
+}
+
 @font-face {
     font-family: "Play";
 
@@ -1194,52 +1257,6 @@ video {
     font-stretch: normal;
 
     font-variant: normal;
-}
-
-.clip-polygon-steep {
-    -webkit-clip-path: polygon(
-        20px 0%,
-        calc(100% - 20px) 0%,
-        100% 10px,
-        100% calc(100% - 10px),
-        calc(100% - 20px) 100%,
-        20px 100%,
-        0% calc(100% - 10px),
-        0% 10px
-    );
-    clip-path: polygon(
-        20px 0%,
-        calc(100% - 20px) 0%,
-        100% 10px,
-        100% calc(100% - 10px),
-        calc(100% - 20px) 100%,
-        20px 100%,
-        0% calc(100% - 10px),
-        0% 10px
-    );
-}
-
-.clip-polygon-right {
-    -webkit-clip-path: polygon(
-        20px 0%,
-        calc(100% - 20px) 0%,
-        100% 20px,
-        100% calc(100% - 20px),
-        calc(100% - 20px) 100%,
-        20px 100%,
-        0% calc(100% - 20px),
-        0% 20px
-    );
-    clip-path: polygon(
-        20px 0%,
-        calc(100% - 20px) 0%,
-        100% 20px,
-        100% calc(100% - 20px),
-        calc(100% - 20px) 100%,
-        20px 100%,
-        0% calc(100% - 20px),
-        0% 20px
-    );
 }
 
 .clip-polygon-right-top {
