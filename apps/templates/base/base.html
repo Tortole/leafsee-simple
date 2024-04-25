@@ -185,11 +185,19 @@
                 >
                     Мои видео
                 </button>
-                <button
-                    class="w-[90%] px-4 text-left font-play text-lg clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick"
-                >
-                    Выйти из аккаунта
-                </button>
+                <form method="POST" action="{% url 'logout' %}" class="w-[90%]">
+                    {% csrf_token %}
+                    <input
+                        type="hidden"
+                        name="next_page"
+                        value="{% url 'main' %}"
+                    />
+                    <button
+                        class="w-full px-4 text-left font-play text-lg clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick"
+                    >
+                        Выйти из аккаунта
+                    </button>
+                </form>
             </div>
         </div>
 
