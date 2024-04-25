@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.http import JsonResponse
 
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.views import LogoutView as AuthLogoutView
 
 from .forms import LoginForm, RegistrationForm
 
@@ -78,3 +79,7 @@ class RegistrationView(View):
             return JsonResponse({"success": True, "next_page": next_page})
         else:
             return JsonResponse({"success": False, "errors": form.errors})
+
+
+class LogoutView(AuthLogoutView):
+    pass
