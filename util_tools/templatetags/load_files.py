@@ -2,11 +2,11 @@
 Module with template tags for load files with params
 """
 
-import xml.etree.ElementTree as ET
-
 from django import template
 from django.utils.safestring import mark_safe
 from django.contrib.staticfiles import finders
+
+import xml.etree.ElementTree as ET
 
 
 register = template.Library()
