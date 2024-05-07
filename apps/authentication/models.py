@@ -31,6 +31,7 @@ class LeafseeUser(AbstractUser):
         password_change_date - DateField - last password change date
         avatar - ImageField - user's avatar image
         subscriptions - ManyToManyField - user's subscriptions to other users
+        is_banned - BooleanField - true when user was blocked, false otherwise, false by default
 
     Notes:
         AbstractUser also contains:
@@ -85,33 +86,33 @@ class LeafseeUser(AbstractUser):
 
     subscriptions = models.ManyToManyField(
         "self",
-        through="Subscriptions",
+        through="Subscription",
         through_fields=("subscriber", "content_creator"),
     )
+
+    is_banned = models.BooleanField("is banned", default=False)
 
     REQUIRED_FIELDS = ["email"]
 
 
-class Subscriptions(models.Model):
+class Subscription(models.Model):
     """
     Model for tracking subscriptions
 
     Fields:
         subscriber - ForeignKey(LeafseeUser) - who subscribed
         content_creator - ForeignKey(LeafseeUser) - subscribed to
-        subscriptions_date - DateField - date of subscriptions
+        subscription_date - DateField - date of subscription
 
     Notes:
         Every model instance unique by subscriber and content_creator
     """
 
-    subscriber = models.ForeignKey(
-        LeafseeUser, related_name="subscriber", on_delete=models.CASCADE
-    )
+    subscriber = models.ForeignKey(LeafseeUser, on_delete=models.CASCADE)
     content_creator = models.ForeignKey(
-        LeafseeUser, related_name="content_creator", on_delete=models.CASCADE
+        LeafseeUser, related_name="subscribers", on_delete=models.CASCADE
     )
-    subscriptions_date = models.DateField(auto_now_add=True)
+    subscription_date = models.DateField(auto_now_add=True)
 
     class Meta:
         # Unique pair of subscriber and content_creator
