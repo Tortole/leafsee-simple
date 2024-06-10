@@ -1,0 +1,60 @@
+<form
+    id="login-form"
+    class="flex flex-col items-center gap-5"
+    method="POST"
+    action="{% url 'login' %}"
+>
+    {% csrf_token %}
+    <p
+        id="login-error-text"
+        class="w-[500px] text-left font-play text-red-l"
+    ></p>
+
+    <div
+        id="login-login-inputwraper"
+        class="login-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+    >
+        <div class="flex flex-row clip-polygon-steep-2">
+            <label
+                class="h-full w-[210px] bg-green-l text-center font-play"
+                for="login"
+                >Логин или E-mail</label
+            >
+            <input
+                id="login"
+                class="w-[350px] pl-2 pr-5 outline-none"
+                type="text"
+                name="login"
+                required
+            />
+        </div>
+    </div>
+
+    <div
+        id="login-password-inputwraper"
+        class="login-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+    >
+        <div class="flex flex-row clip-polygon-steep-2">
+            <label
+                class="h-full w-[210px] bg-green-l text-center font-play"
+                for="password"
+                >Пароль</label
+            >
+            <input
+                id="password"
+                class="w-[350px] pl-2 pr-5 outline-none"
+                type="password"
+                name="password"
+                required
+            />
+        </div>
+    </div>
+
+    <button
+        class="w-36 bg-green-l font-play text-xl outline-none clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick"
+        type="submit"
+    >
+        Вход
+    </button>
+    <input type="hidden" name="next" value="{% url 'main' %}" />
+</form>
