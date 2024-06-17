@@ -22,7 +22,7 @@ def setUpModule():
     """
     Run once before all class tests
     """
-    TEST_DATA_DIRECTORY.mkdir(exist_ok=True)
+    TEST_DATA_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
 
 def tearDownModule():

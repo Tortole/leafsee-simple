@@ -39,6 +39,74 @@ class VideoRating(models.TextChoices):
     NONE = "n"
 
 
+def generate_user_media_path(instance, filename, subfolder=None):
+    """
+    Generate path to uploaded user's media file: the file will be saved in
+    MEDIA_ROOT/user_videos/<username>/<subfolder (if passed)>/<filename>
+
+    Parameters:
+        instance - Video - instance of the Video model for which path is generated
+        filename - str - name of the file
+        subfolder - str - subfolder where the file will be contained
+
+    Return:
+        path - str - path to save file
+    """
+    if subfolder:
+        return f"user_videos/{instance.author.username}/{subfolder}/{filename}"
+    else:
+        return f"user_videos/{instance.author.username}/{filename}"
+
+
+def generate_video_path(instance, filename):
+    """
+    Generate path to uploaded video
+
+    Parameters:
+        instance - Video - instance of the Video model for which path is generated
+        filename - str - name of the video file
+
+    Return:
+        path - str - path to save video
+    """
+    return generate_user_media_path(instance, filename, "video")
+
+
+def generate_preview_path(instance, filename):
+    """
+    Generate path to uploaded preview image for video
+
+    Parameters:
+        instance - Video - instance of the Video model for which path is generated
+        filename - str - name of the preview file
+
+    Return:
+        path - str - path to save video
+    """
+    return generate_user_media_path(instance, filename, "preview")
+
+
+def determining_video_duration(video_filepath):
+    """
+    Calculate and return video file duration
+
+    Parameters:
+        video_filepath - str - path to the video file
+
+    Return:
+        duration - datetime.timedelta - video duration
+    """
+    cap = cv2.VideoCapture(video_filepath)
+
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    frame_rate = int(cap.get(cv2.CAP_PROP_FPS))
+
+    duration_seconds = total_frames / frame_rate
+    cap.release()
+
+    return timedelta(seconds=duration_seconds)
+
+
 class Video(models.Model):
     """
     Model for video
@@ -57,10 +125,10 @@ class Video(models.Model):
               (only authenticated users can rate videos)
     """
 
-    file = models.FileField(blank=False)
-    duration = models.DurationField()
+    file = models.FileField(blank=False, upload_to=generate_video_path)
+    duration = models.DurationField(blank=True)
     name = models.CharField(max_length=250, blank=False)
-    description = models.TextField(max_length=5000)
+    description = models.TextField(max_length=5000, blank=True)
     author = models.ForeignKey(
         LeafseeUser,
         related_name="videos",
@@ -69,28 +137,9 @@ class Video(models.Model):
         on_delete=models.SET_NULL,
     )
     upload_date = models.DateField(auto_now_add=True)
-    preview_image = models.ImageField()
+    preview_image = models.ImageField(blank=True, upload_to=generate_preview_path)
     tags = models.ManyToManyField("Tag", through="VideoTag")
     rated_views = models.ManyToManyField(LeafseeUser, through="VideoRatedViews")
-
-    def _determining_video_duration(self, video_filepath):
-        """
-        Calculate and return video file duration
-        """
-        cap = cv2.VideoCapture(video_filepath)
-
-        total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        frame_rate = int(cap.get(cv2.CAP_PROP_FPS))
-
-        duration_seconds = total_frames / frame_rate
-        cap.release()
-
-        return timedelta(seconds=duration_seconds)
-
-    def save(self, *args, **kwargs):
-        # Set video duration before save model
-        self.duration = self._determining_video_duration(self.file.path)
-        super().save(*args, **kwargs)
 
 
 class VideoTag(models.Model):
