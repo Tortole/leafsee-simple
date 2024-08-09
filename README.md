@@ -36,6 +36,10 @@ poetry run init
 
 &ensp; &ensp; &ensp; &ensp; или, если развертывание происходит на производственный сервер:
 
+```console
+poetry run init --prod
+```
+
 6. Запустить локальный сервер django с проектом через команду
 
 ```console
@@ -97,7 +101,7 @@ poetry run <scripts_name>
 
 Подкаталоги и файлы со скриптами:
 
--   `scripts.py` - пользовательские скрипты для `tailwind`
+-   `scripts.py` - пользовательские скрипты для `poetry`
 
 -   `templatetags` - каталог с пользовательскими template tag'ами для Django
 

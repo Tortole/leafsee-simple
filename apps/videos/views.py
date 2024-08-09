@@ -2,6 +2,9 @@
 Module with views for video app
 """
 
+from django.views import View
+from django.shortcuts import render
+
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.parsers import FormParser, MultiPartParser
@@ -32,3 +35,14 @@ class VideoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+class MainView(View):
+    """
+    View for render main page
+    """
+
+    template_name = "videos/main.html"
+
+    def get(self, request):
+        return render(request, self.template_name)

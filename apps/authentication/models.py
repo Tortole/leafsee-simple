@@ -28,7 +28,7 @@ class LeafseeUser(AbstractUser):
         last_name - CharField - user last name
         nickname - CharField - public showing username, it can be non unique
         description - TextField - user's self-description
-        password_change_date - DateField - last password change date
+        password_change_date - DateTimeField - last password change date
         avatar - ImageField - user's avatar image
         subscriptions - ManyToManyField - user's subscriptions to other users
         is_banned - BooleanField - true when user was blocked, false otherwise, false by default
@@ -79,7 +79,7 @@ class LeafseeUser(AbstractUser):
     )
 
     description = models.TextField("self-description")
-    password_change_date = models.DateField(
+    password_change_date = models.DateTimeField(
         "last password change date", default=datetime.date.today
     )
     avatar = models.ImageField()
@@ -101,8 +101,8 @@ class Subscription(models.Model):
 
     Fields:
         subscriber - ForeignKey(LeafseeUser) - who subscribed
-        content_creator - ForeignKey(LeafseeUser) - subscribed to
-        subscription_date - DateField - date of subscription
+        content_creator - ForeignKey(LeafseeUser, related_name="subscribers") - subscribed to
+        subscription_date - DateTimeField - date of subscription
 
     Notes:
         Every model instance unique by subscriber and content_creator
@@ -112,7 +112,7 @@ class Subscription(models.Model):
     content_creator = models.ForeignKey(
         LeafseeUser, related_name="subscribers", on_delete=models.CASCADE
     )
-    subscription_date = models.DateField(auto_now_add=True)
+    subscription_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # Unique pair of subscriber and content_creator

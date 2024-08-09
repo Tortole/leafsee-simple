@@ -14,8 +14,15 @@ class VideoSerializer(serializers.ModelSerializer):
     DRF serializer for Video model
 
     Fields:
+        author_username - CharField - author username
+        author_nickname - CharField - author nickname
+        author_avatar - ImageField - link to author avatar
+        views_count - IntegerField - video views count
+        likes_count - IntegerField - video likes count
+        dislikes_count - IntegerField - video dislikes count
+
         From Video model (by Meta):
-            file - FileField - path to video file in media directory
+            id - int - video id
             duration - DurationField - video duration
             name - CharField - public video name
             description - TextField - public video description
@@ -23,27 +30,52 @@ class VideoSerializer(serializers.ModelSerializer):
             upload_date - DateField - video upload date
             preview_image - ImageField - image that is displayed on block with link to video
             tags - ManyToManyField(Tag, through=VideoTag) - links to video tags
-            rated_views - ManyToManyField(LeafseeUser, through=VideoRatedViews)
-                - links to users who have watched video and can rate it
 
             Writable:
-                - file
                 - name
                 - description
                 - preview_image
 
             Read-only:
+                - id
                 - duration
                 - author
                 - upload_date
                 - tags
-                - rated_views
     """
+
+    author_username = serializers.CharField(source="author.username", read_only=True)
+    author_nickname = serializers.CharField(source="author.nickname", read_only=True)
+    author_avatar = serializers.ImageField(source="author.avatar", read_only=True)
+    views_count = serializers.IntegerField(source="auth_viewers.count", read_only=True)
+    likes_count = serializers.IntegerField(source="likes.count", read_only=True)
+    dislikes_count = serializers.IntegerField(source="dislikes.count", read_only=True)
+    timesince = serializers.CharField(source="timesince_upload", read_only=True)
 
     class Meta:
         model = Video
-        fields = "__all__"
-        read_only_fields = ["duration", "author", "upload_date", "tags", "rated_views"]
+        fields = [
+            # >>>> Serializer field >>>>
+            "author_username",
+            "author_nickname",
+            "author_avatar",
+            "views_count",
+            "likes_count",
+            "dislikes_count",
+            "timesince",
+            # <<<< <<<<
+            # >>>> Model field >>>>
+            "id",
+            "duration",
+            "name",
+            "description",
+            "author",
+            "upload_date",
+            "preview_image",
+            "tags",
+            # <<<< <<<<
+        ]
+        read_only_fields = ["id", "duration", "author", "upload_date", "tags"]
 
     def create(self, validated_data):
         # Set video duration to zero to overwrite it later

@@ -3,6 +3,7 @@ Module with models for video and everything related to them
 """
 
 from django.db import models
+from django.utils import timesince
 
 import cv2
 from datetime import timedelta
@@ -52,6 +53,7 @@ def generate_user_media_path(instance, filename, subfolder=None):
     Return:
         path - str - path to save file
     """
+
     if subfolder:
         return f"user_videos/{instance.author.username}/{subfolder}/{filename}"
     else:
@@ -69,6 +71,7 @@ def generate_video_path(instance, filename):
     Return:
         path - str - path to save video
     """
+
     return generate_user_media_path(instance, filename, "video")
 
 
@@ -83,6 +86,7 @@ def generate_preview_path(instance, filename):
     Return:
         path - str - path to save video
     """
+
     return generate_user_media_path(instance, filename, "preview")
 
 
@@ -96,6 +100,7 @@ def determining_video_duration(video_filepath):
     Return:
         duration - datetime.timedelta - video duration
     """
+
     cap = cv2.VideoCapture(video_filepath)
 
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -116,13 +121,18 @@ class Video(models.Model):
         duration - DurationField - video duration
         name - CharField - public video name
         description - TextField - public video description
-        author - ForeignKey(LeafseeUser) - user who uploaded video
-        upload_date - DateField - video upload date
+        author - ForeignKey(LeafseeUser, related_name="videos") - user who uploaded video
+        upload_date - DateTimeField - video upload date
         preview_image - ImageField - image that is displayed on block with link to video
         tags - ManyToManyField(Tag, through=VideoTag) - links to video tags
-        rated_views - ManyToManyField(LeafseeUser, through=VideoRatedViews)
-            - links to users who have watched video and can rate it
-              (only authenticated users can rate videos)
+        auth_viewers - ManyToManyField(LeafseeUser, through=VideoRatedViews) - links to users who
+            have watched video and can rate it (only authenticated users can rate videos)
+
+    Property:
+        likes - QuerySet(VideoRatedViews) - video views with like rating
+        dislikes - QuerySet(VideoRatedViews) - video views with dislike rating
+        none_rated - QuerySet(VideoRatedViews) - video views without rating
+        timesince_upload - str - time since video was uploaded
     """
 
     file = models.FileField(blank=False, upload_to=generate_video_path)
@@ -136,10 +146,26 @@ class Video(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
-    upload_date = models.DateField(auto_now_add=True)
+    upload_date = models.DateTimeField(auto_now_add=True)
     preview_image = models.ImageField(blank=True, upload_to=generate_preview_path)
     tags = models.ManyToManyField("Tag", through="VideoTag")
-    rated_views = models.ManyToManyField(LeafseeUser, through="VideoRatedViews")
+    auth_viewers = models.ManyToManyField(LeafseeUser, through="VideoRatedViews")
+
+    @property
+    def likes(self):
+        return self.rated_views.filter(video_rating=VideoRating.LIKE)
+
+    @property
+    def dislikes(self):
+        return self.rated_views.filter(video_rating=VideoRating.DISLIKE)
+
+    @property
+    def none_rated(self):
+        return self.rated_views.filter(video_rating=VideoRating.NONE)
+
+    @property
+    def timesince_upload(self):
+        return timesince.timesince(self.upload_date)
 
 
 class VideoTag(models.Model):
@@ -148,7 +174,7 @@ class VideoTag(models.Model):
 
     Fields:
         video - ForeignKey(Video) - link to video
-        tag - ForeignKey(Tag) - link to tag
+        tag - ForeignKey(Tag, related_name="tagged_videos") - link to tag
 
     Notes:
         Every model instance unique by video and tag
@@ -171,18 +197,20 @@ class VideoRatedViews(models.Model):
     Model for rated views mappings to videos
 
     Fields:
-        video - ForeignKey(Video) - link to video
-        user - ForeignKey(LeafseeUser) - link to user who have watched video and maybe rate it
+        video - ForeignKey(Video, related_name="rated_views") - link to video
+        user - ForeignKey(LeafseeUser, related_name="viewed_videos") - link to user who have
+            watched video and maybe rate it
         video_rating - CharField(choices=VideoRating) - video rating left by user
-                                                        can only have values of choices
-                                                        from VideoRating
-        viewing_date - DateField - video last viewing date by user
+            can only have values of choices from VideoRating
+        viewing_date - DateTimeField - video last viewing date by user
 
     Notes:
         Every model instance unique by video and user
     """
 
-    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    video = models.ForeignKey(
+        Video, related_name="rated_views", on_delete=models.CASCADE
+    )
     user = models.ForeignKey(
         LeafseeUser,
         related_name="viewed_videos",
@@ -193,7 +221,7 @@ class VideoRatedViews(models.Model):
     video_rating = models.CharField(
         max_length=1, choices=VideoRating, default=VideoRating.NONE
     )
-    viewing_date = models.DateField(auto_now_add=True)
+    viewing_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # Unique pair of video and user
@@ -210,39 +238,46 @@ class Comment(models.Model):
 
     Fields:
         text - TextField - comment text
-        publication_date - DateField - comment publication date
-        author - ForeignKey(LeafseeUser) - link to user who wrote and posted comment
+        publication_date - DateTimeField - comment publication date
+        author - ForeignKey(LeafseeUser, related_name="comments") - link to user who wrote and
+            posted comment
         is_changed - BooleanField - comment text changing flag:
-                                    True if comment was changed from first posted one,
-                                    False otherwise
+            * True if comment was changed from first posted one
+            * False otherwise
         is_delete - BooleanField - comment deleting flag:
-                                   True if comment was deleted
-                                   False otherwise
-        commented_video - ForeignKey(Video) - link to video under which comment was posted
-        commented_comment - ForeignKey(Comment) - link to comment for which current comment
-                                                  is response, can be Null
-        ratings - ManyToManyField(LeafseeUser, through=CommentRating)
-            - links to users who rated comment
+            * True if comment was deleted
+            * False otherwise
+        commented_video - ForeignKey(Video, related_name="comments") - link to video under which
+            comment was posted
+        commented_comment - ForeignKey(Comment, related_name="responses") - link to comment for
+            which current comment is response, can be Null
+        rated - ManyToManyField(LeafseeUser, through=CommentRating) - links to users who
+            rated comment
     """
 
     text = models.TextField(max_length=7500, blank=False)
-    publication_date = models.DateField(auto_now_add=True)
+    publication_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
         LeafseeUser,
+        related_name="comments",
         blank=False,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="comments",
     )
     is_changed = models.BooleanField("is changed", default=False)
     is_delete = models.BooleanField("is delete", default=False)
     commented_video = models.ForeignKey(
-        Video, on_delete=models.CASCADE, related_name="comments"
+        Video,
+        related_name="comments",
+        on_delete=models.CASCADE,
     )
     commented_comment = models.ForeignKey(
-        "self", on_delete=models.PROTECT, null=True, related_name="responses"
+        "self",
+        related_name="responses",
+        on_delete=models.PROTECT,
+        null=True,
     )
-    ratings = models.ManyToManyField(LeafseeUser, through="CommentRating")
+    rated = models.ManyToManyField(LeafseeUser, through="CommentRating")
 
 
 class CommentRating(models.Model):
@@ -250,16 +285,19 @@ class CommentRating(models.Model):
     Model for rating mappings to comment
 
     Fields:
-        comment - ForeignKey(Comment) - link to rated comment
-        user - ForeignKey(LeafseeUser) - link to user who rated comment
+        comment - ForeignKey(Comment, related_name="rated_comments") - link to rated comment
+        user - ForeignKey(LeafseeUser, related_name="rated_comments") - link to user
+            who rated comment
         comment_rating - CharField(choices=Rating) - comment rating left by user
-                                                     can only have values of choices from Rating
+            can only have values of choices from Rating
 
     Notes:
         Every model instance unique by comment and user
     """
 
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment = models.ForeignKey(
+        Comment, related_name="ratings", on_delete=models.CASCADE
+    )
     user = models.ForeignKey(
         LeafseeUser,
         related_name="rated_comments",
