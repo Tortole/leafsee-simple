@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
 import environ
+from pathlib import Path
 
 
 root = environ.Path(__file__)
@@ -43,7 +45,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "apps.authentication",
+    "apps.videos",
 ]
+
+AUTH_USER_MODEL = "authentication.LeafseeUser"
+
+AUTHENTICATION_BACKENDS = [
+    "apps.authentication.backends.UsernameEmailAuthenticationBackend",
+]
+
+LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -53,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "leafsee_simple.urls"
@@ -108,9 +122,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
+LANGUAGES = (
+    ("en-us", _("English")),
+    ("ru", _("Russian")),
+)
 TIME_ZONE = "UTC"
 USE_I18N = True
+USE_L10N = True
 USE_TZ = True
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -121,6 +141,12 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "apps/static",
 ]
+
+
+# Media files
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
 
 
 # Default primary key field type

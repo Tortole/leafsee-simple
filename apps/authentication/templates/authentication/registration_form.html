@@ -1,0 +1,173 @@
+<form
+    id="registration-form"
+    class="flex flex-col items-center gap-5"
+    method="POST"
+    action="{% url 'registration' %}"
+>
+    {% csrf_token %}
+    <p
+        id="registration-error-text"
+        class="flex w-[500px] flex-col gap-2 text-left font-play text-red-l"
+    ></p>
+
+    <div class="bg-green-l p-[1px] clip-polygon-right-2">
+        <div
+            class="flex size-max flex-col items-center gap-5 bg-gray-n p-5 clip-polygon-right-2"
+        >
+            <p class="w-full text-left font-play text-xs">Обязательные поля</p>
+
+            <div
+                id="registration-username-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="username"
+                        >Имя пользователя</label
+                    >
+                    <input
+                        id="username"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="text"
+                        name="username"
+                        required
+                    />
+                </div>
+            </div>
+
+            <div
+                id="registration-password1-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="password1"
+                        >Пароль</label
+                    >
+                    <input
+                        id="password1"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="password"
+                        name="password1"
+                        required
+                    />
+                </div>
+            </div>
+
+            <div
+                id="registration-password2-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="password2"
+                        >Пароль ещё раз</label
+                    >
+                    <input
+                        id="password2"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="password"
+                        name="password2"
+                        required
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-green-l p-[1px] clip-polygon-right-2">
+        <div
+            class="flex size-max flex-col items-center gap-5 bg-gray-n p-5 clip-polygon-right-2"
+        >
+            <p class="w-full text-left font-play text-xs">
+                Необязательные поля
+            </p>
+            <div
+                id="registration-email-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="email"
+                        >Электронная почта</label
+                    >
+                    <input
+                        id="email"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="text"
+                        name="email"
+                    />
+                </div>
+            </div>
+
+            <div
+                id="registration-nickname-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="nickname"
+                        >Никнейм</label
+                    >
+                    <input
+                        id="nickname"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="text"
+                        name="nickname"
+                    />
+                </div>
+            </div>
+
+            <div
+                id="registration-first-name-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="first-name"
+                        >Имя</label
+                    >
+                    <input
+                        id="first-name"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="text"
+                        name="first_name"
+                    />
+                </div>
+            </div>
+
+            <div
+                id="registration-last-name-inputwraper"
+                class="registration-inputwraper size-max bg-green-l p-[2px] clip-polygon-steep-2"
+            >
+                <div class="flex flex-row clip-polygon-steep-2">
+                    <label
+                        class="h-full w-[210px] bg-green-l text-center font-play"
+                        for="last-name"
+                        >Фамилия</label
+                    >
+                    <input
+                        id="last-name"
+                        class="w-[350px] pl-2 pr-5 outline-none"
+                        type="text"
+                        name="last_name"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button
+        class="w-44 bg-green-l font-play text-xl outline-none clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick"
+        type="submit"
+    >
+        Регистрация
+    </button>
+    <input type="hidden" name="next" value="{% url 'main' %}" />
+</form>

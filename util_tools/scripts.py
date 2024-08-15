@@ -2,9 +2,30 @@
 Project scripts for run through Poetry
 """
 
+import sys
 import argparse
 import subprocess
 from pathlib import Path
+
+
+def manager():
+    subprocess.run(["poetry", "run", "python", "manage.py", *sys.argv[1:]], check=False)
+
+
+def tailwind():
+    subprocess.run(
+        [
+            "npx",
+            "tailwindcss",
+            "-i",
+            str(Path("apps/static/base/css/input.css")),
+            "-o",
+            str(Path("apps/static/base/css/out.css")),
+            *sys.argv[1:],
+        ],
+        shell=True,
+        check=False,
+    )
 
 
 def full_migrate():
@@ -31,10 +52,6 @@ def init():
         subprocess.run(["poetry", "run", "pre-commit", "install"], check=False)
 
 
-def runserver():
-    subprocess.run(["poetry", "run", "python", "manage.py", "runserver"], check=False)
-
-
 def flake8():
     subprocess.run(["poetry", "run", "flake8", "."], check=False)
 
@@ -44,19 +61,16 @@ def black():
     flake8()
 
 
-def tailwind():
-    # Transmits argument --watch if it was transmitted
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--watch", dest="watch", action="store_true", default=False)
-    args = parser.parse_args()
-
+def export_requirements():
     subprocess.run(
-        (
-            "npx tailwindcss"
-            + f" -i {Path('apps/static/base/css/input.css')}"
-            + f" -o {Path('apps/static/base/css/out.css')}"
-            + (" --watch" if args.watch else "")
-        ),
-        shell=True,
+        [
+            "poetry",
+            "export",
+            "-f",
+            "requirements.txt",
+            "-o",
+            "requirements.txt",
+            "--without-hashes",
+        ],
         check=False,
     )
