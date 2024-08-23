@@ -21,6 +21,8 @@ class VideoSerializer(serializers.ModelSerializer):
         likes_count - IntegerField - video likes count
         dislikes_count - IntegerField - video dislikes count
 
+        url_watch - HyperlinkedIdentityField - link to watch video page
+
         From Video model (by Meta):
             id - int - video id
             duration - DurationField - video duration
@@ -52,6 +54,13 @@ class VideoSerializer(serializers.ModelSerializer):
     dislikes_count = serializers.IntegerField(source="dislikes.count", read_only=True)
     timesince = serializers.CharField(source="timesince_upload", read_only=True)
 
+    url_watch = serializers.HyperlinkedIdentityField(
+        view_name="watch",
+        lookup_field="id",
+        lookup_url_kwarg="video_id",
+        read_only=True,
+    )
+
     class Meta:
         model = Video
         fields = [
@@ -63,6 +72,7 @@ class VideoSerializer(serializers.ModelSerializer):
             "likes_count",
             "dislikes_count",
             "timesince",
+            "url_watch",
             # <<<< <<<<
             # >>>> Model field >>>>
             "id",

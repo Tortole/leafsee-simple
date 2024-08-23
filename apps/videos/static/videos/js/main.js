@@ -86,7 +86,7 @@ function videoBlockConstructorMain(video) {
     template.removeAttr("id");
 
     // Set video link
-    template.attr("href", `${video_watch_url}\\${video.id}`);
+    template.attr("href", video.url_watch);
 
     // Set author avatar
     template
@@ -98,9 +98,9 @@ function videoBlockConstructorMain(video) {
     template.find(".video-block-name").text(video.name);
 
     // Set channel link
-    template
-        .find(".video-block-link-channel")
-        .attr("href", `${author_channel_url}\\${video.author}`);
+    // template
+    //     .find(".video-block-link-channel")
+    //     .attr("href", video.url_author_channel);
 
     // Set author nickname
     template.find(".video-block-nickname").text(video.author_nickname);

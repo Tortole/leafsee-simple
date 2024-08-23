@@ -1,0 +1,21 @@
+<!-- prettier-ignore -->
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} LeafSee {% endblock title%}
+
+{% block content %}
+<div>
+    <div class="video-player">
+        <video class="video" controls>
+            <source src="{{ video.file.url }}" type="video/mp4" />
+        </video>
+    </div>
+</div>
+{% comment %}
+<!-- prettier-ignore -->
+{% endcomment %}
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'videos/js/watch.js' %}" type="text/javascript"></script>
+{% endblock %}

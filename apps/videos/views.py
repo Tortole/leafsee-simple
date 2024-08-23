@@ -46,3 +46,15 @@ class MainView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class WatchView(View):
+    """
+    !!!
+    """
+
+    template_name = "videos/watch.html"
+
+    def get(self, request, video_id):
+        video = Video.objects.get(pk=video_id)
+        return render(request, self.template_name, context={"video": video})

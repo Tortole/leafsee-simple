@@ -5,7 +5,7 @@ Module with URLs for Video app
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import VideoViewSet, MainView
+from .views import VideoViewSet, MainView, WatchView
 
 
 """
@@ -27,4 +27,5 @@ router.register(r"video", VideoViewSet, basename="video")
 urlpatterns = [
     path("api/", include(router.urls)),
     path("", MainView.as_view(), name="main"),
+    path("watch/<int:video_id>", WatchView.as_view(), name="watch"),
 ]
