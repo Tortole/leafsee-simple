@@ -1,14 +1,50 @@
+{% extends 'base/base.html' %} {% comment %}
 <!-- prettier-ignore -->
-{% extends 'base/base.html' %}
+{% endcomment %}
 {% load static %}
-{% block title %} LeafSee {% endblock title%}
+{% load load_files %}
+{% block title %} {{ video.name }} {% endblock title%}
 
 {% block content %}
 <div>
-    <div class="video-player">
-        <video class="video" controls>
+    <div
+        class="relative aspect-video w-[75%] overflow-hidden clip-polygon-right-1"
+    >
+        <video
+            id="video-player"
+            class="absolute size-full bg-black object-contain"
+        >
             <source src="{{ video.file.url }}" type="video/mp4" />
         </video>
+        <div
+            class="absolute bottom-0 flex w-full flex-col gap-2 bg-gradient-to-t from-black px-2 pb-3 pt-9"
+        >
+            <div
+                id="control-progress-bar"
+                class="relative h-1 w-full cursor-pointer bg-white bg-opacity-25"
+            >
+                <div
+                    id="control-progress-bar-loaded"
+                    class="absolute h-full w-0 bg-white bg-opacity-50"
+                ></div>
+                <div
+                    id="control-progress-bar-watched"
+                    class="absolute h-full w-0 bg-green-n"
+                ></div>
+            </div>
+            <div class="flex w-full flex-row items-center justify-between px-4">
+                <div class="flex flex-row items-center">
+                    <button id="control-play-button">
+                        {% comment %}
+                        <!-- prettier-ignore -->
+                        {% endcomment %}
+                        {% load_svg 'svg\videoplayer_play_button.svg' class='w-5 fill-white' %}
+                        {% load_svg 'svg\videoplayer_pause_button.svg' class='w-5 hidden fill-white' %}
+                    </button>
+                </div>
+                <div class="flex flex-row items-center"></div>
+            </div>
+        </div>
     </div>
 </div>
 {% comment %}
