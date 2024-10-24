@@ -74,7 +74,8 @@ There are more rules here:
     - refactor: Refactoring a specific section of the codebase
     - test: Everything related to testing
     - docs: Everything related to documentation
-    - chore: Regular code maintenance.[ You can also use emojis to represent commit types]
+    - chore: Regular code maintenance
+    - temp: Temporary commit for later removal
 
 2.  Separate the subject from the body with a blank line
 
