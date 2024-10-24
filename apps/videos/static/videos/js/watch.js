@@ -24,13 +24,17 @@ videoPlayer.on("play", togglePlayButton);
 videoPlayer.on("pause", togglePlayButton);
 // <<<< <<<<
 
+// >>>> Volume >>>>
+
+// <<<< <<<<
+
 // >>>> Progress Bar >>>>
 const progressBar = $("#control-progress-bar");
 const progressBarLoaded = $("#control-progress-bar-loaded");
 const progressBarWatched = $("#control-progress-bar-watched");
 
 function handleProgressBar() {
-    var progressPercentage = (video.currentTime / video.duration) * 100;
+    let progressPercentage = (video.currentTime / video.duration) * 100;
     progressBarWatched.css("width", `${progressPercentage}%`);
 }
 
@@ -41,7 +45,7 @@ function scrub(event) {
 
 videoPlayer.on("timeupdate", handleProgressBar);
 progressBar.on("click", scrub);
-var mousedown = false;
+let mousedown = false;
 progressBar.on("mousedown", () => (mousedown = true));
 progressBar.on("mousemove", (event) => mousedown && scrub(event));
 progressBar.on("mouseup", () => (mousedown = false));

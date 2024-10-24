@@ -141,6 +141,7 @@ dmypy.json
 node_modules/
 
 # Temporary directories and files
+temp-*
 temp-*/
 
 # Media directory
