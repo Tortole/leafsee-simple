@@ -9,7 +9,9 @@ from pathlib import Path
 
 
 def manager():
-    subprocess.run(["poetry", "run", "python", "manage.py", *sys.argv[1:]], check=False)
+    subprocess.run(
+        ["poetry", "run", "python", "backend/manage.py", *sys.argv[1:]], check=False
+    )
 
 
 def tailwind():
@@ -30,9 +32,11 @@ def tailwind():
 
 def full_migrate():
     subprocess.run(
-        ["poetry", "run", "python", "manage.py", "makemigrations"], check=False
+        ["poetry", "run", "python", "backend/manage.py", "makemigrations"], check=False
     )
-    subprocess.run(["poetry", "run", "python", "manage.py", "migrate"], check=False)
+    subprocess.run(
+        ["poetry", "run", "python", "backend/manage.py", "migrate"], check=False
+    )
 
 
 def init():

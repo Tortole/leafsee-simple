@@ -86,7 +86,7 @@ poetry run <scripts_name>
 
 ### Реализованные скрипты Poetry
 
--   `m` - сокращение для `python manage.py`, принимает все аргументы и параметры подходящие для `manage.py`
+-   `m` - сокращение для `python backend/manage.py`, принимает все аргументы и параметры подходящие для `manage.py`
 -   `t` - сокращение для `npx tailwindcss -i ...\input.css -o ...\out.css`, принимает все аргументы и параметры подходящие для `tailwindcss`
 -   `full_migrate` - полная миграция Django (makemigrations и migrate)
 -   `init` - начальное развертывание проекта
