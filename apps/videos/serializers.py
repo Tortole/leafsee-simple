@@ -23,6 +23,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
         From Video model (by Meta):
             id - int - video id
+            file - FileField - path to video file in media directory
             duration - DurationField - video duration
             name - CharField - public video name
             description - TextField - public video description
@@ -32,6 +33,7 @@ class VideoSerializer(serializers.ModelSerializer):
             tags - ManyToManyField(Tag, through=VideoTag) - links to video tags
 
             Writable:
+                - file
                 - name
                 - description
                 - preview_image
@@ -66,6 +68,7 @@ class VideoSerializer(serializers.ModelSerializer):
             # <<<< <<<<
             # >>>> Model field >>>>
             "id",
+            "file",
             "duration",
             "name",
             "description",
