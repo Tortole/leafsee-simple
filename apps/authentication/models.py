@@ -28,9 +28,10 @@ class LeafseeUser(AbstractUser):
         last_name - CharField - user last name
         nickname - CharField - public showing username, it can be non unique
         description - TextField - user's self-description
-        password_change_date - DateField - last password change date
+        password_change_date - DateTimeField - last password change date
         avatar - ImageField - user's avatar image
         subscriptions - ManyToManyField - user's subscriptions to other users
+        is_banned - BooleanField - true when user was blocked, false otherwise, false by default
 
     Notes:
         AbstractUser also contains:
@@ -78,40 +79,40 @@ class LeafseeUser(AbstractUser):
     )
 
     description = models.TextField("self-description")
-    password_change_date = models.DateField(
+    password_change_date = models.DateTimeField(
         "last password change date", default=datetime.date.today
     )
     avatar = models.ImageField()
 
     subscriptions = models.ManyToManyField(
         "self",
-        through="Subscriptions",
+        through="Subscription",
         through_fields=("subscriber", "content_creator"),
     )
+
+    is_banned = models.BooleanField("is banned", default=False)
 
     REQUIRED_FIELDS = ["email"]
 
 
-class Subscriptions(models.Model):
+class Subscription(models.Model):
     """
     Model for tracking subscriptions
 
     Fields:
         subscriber - ForeignKey(LeafseeUser) - who subscribed
-        content_creator - ForeignKey(LeafseeUser) - subscribed to
-        subscriptions_date - DateField - date of subscriptions
+        content_creator - ForeignKey(LeafseeUser, related_name="subscribers") - subscribed to
+        subscription_date - DateTimeField - date of subscription
 
     Notes:
         Every model instance unique by subscriber and content_creator
     """
 
-    subscriber = models.ForeignKey(
-        LeafseeUser, related_name="subscriber", on_delete=models.CASCADE
-    )
+    subscriber = models.ForeignKey(LeafseeUser, on_delete=models.CASCADE)
     content_creator = models.ForeignKey(
-        LeafseeUser, related_name="content_creator", on_delete=models.CASCADE
+        LeafseeUser, related_name="subscribers", on_delete=models.CASCADE
     )
-    subscriptions_date = models.DateField(auto_now_add=True)
+    subscription_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # Unique pair of subscriber and content_creator

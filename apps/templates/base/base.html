@@ -55,6 +55,9 @@
             </div>
             {% if user.is_authenticated %}
             <div class="flex h-full w-max items-center justify-between gap-4">
+                <a href="{% url 'video-list' %}">
+                    {% load_svg 'svg\video_upload.svg' class='w-8' %}
+                </a>
                 <button onclick="toggleElement('base-notifications')">
                     {% load_svg 'svg\notification_bell.svg' class='w-6' %}
                 </button>
@@ -284,6 +287,6 @@
         <!-- prettier-ignore -->
         {% endcomment %}
         {% endif %}
-        {% block js %}{% endblock %}
+        {% block scripts %}{% endblock %}
     </body>
 </html>

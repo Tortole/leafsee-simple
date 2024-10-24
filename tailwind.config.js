@@ -12,6 +12,12 @@ module.exports = {
             4: "40px",
             8: "80px",
         },
+        gridRepeatAuto: {
+            1: "100px",
+            2: "200px",
+            3: "300px",
+            4: "400px",
+        },
         extend: {
             colors: {
                 "green-leaf": "#39B54A",
@@ -62,6 +68,16 @@ module.exports = {
                     }),
                 },
                 { values: theme("clipPolygonSliceSize") },
+            );
+        }),
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    "grid-repeat-auto-fit": (value) => ({
+                        "grid-template-columns": `repeat(auto-fit, minmax(${value}, 1fr))`,
+                    }),
+                },
+                { values: theme("gridRepeatAuto") },
             );
         }),
     ],

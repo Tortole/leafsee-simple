@@ -139,3 +139,10 @@ dmypy.json
 
 # Node.js libs folder
 node_modules/
+
+# Temporary directories and files
+temp-*
+temp-*/
+
+# Media directory
+media/

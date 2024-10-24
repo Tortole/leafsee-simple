@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from django.utils.translation import gettext_lazy as _
 
-from pathlib import Path
 import environ
+from pathlib import Path
 
 
 root = environ.Path(__file__)
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "apps.authentication",
+    "apps.videos",
 ]
 
 AUTH_USER_MODEL = "authentication.LeafseeUser"
@@ -139,6 +141,12 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "apps/static",
 ]
+
+
+# Media files
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"
 
 
 # Default primary key field type
