@@ -266,3 +266,7 @@ poetry run <scripts_name>
 Чтобы запустить автоформатирование нужно в терминале прописать `npx prettier <path/to/file> --write`, где `<path/to/file>` - путь до файла, который нужно форматировать, либо `.`, если нужно форматировать все файлы в проекте. Также для VS Code можно установить плагин для Prettier.
 
 Так как Prettier не умеет правильно форматировать шаблоны Django в HTML коде, то может потребоваться поставить перед ними комментарий `<!-- prettier-ignore -->` и форматировать в ручную.
+
+# Docker
+
+docker compose -f .\docker_compose\leafsee_simple_dev\docker-compose.yml up -d

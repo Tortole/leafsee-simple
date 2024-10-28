@@ -10,7 +10,7 @@ from datetime import timedelta
 
 from apps.authentication.models import LeafseeUser
 
-from util_tools.wrappers.model_wrappers import extend_choices
+from wrappers.model_wrappers import extend_choices
 
 
 class Rating(models.TextChoices):

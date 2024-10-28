@@ -69,10 +69,10 @@ msgid ""
 msgstr ""
 "Неверная фамилия: может содержать только буквы, цифры и символ пробела."
 
-#: .\leafsee_simple\settings.py:122
+#: .\configs\settings.py:122
 msgid "English"
 msgstr "Английский"
 
-#: .\leafsee_simple\settings.py:123
+#: .\configs\settings.py:123
 msgid "Russian"
 msgstr "Русский"
