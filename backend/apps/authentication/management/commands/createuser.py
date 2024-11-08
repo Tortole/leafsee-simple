@@ -2,7 +2,7 @@ from getpass import getpass
 
 from django.core.management.base import BaseCommand
 
-from apps.authentication.models import LeafseeUser
+from backend.apps.authentication.models import LeafseeUser
 
 
 class Command(BaseCommand):

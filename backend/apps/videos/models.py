@@ -8,9 +8,9 @@ from django.utils import timesince
 import cv2
 from datetime import timedelta
 
-from apps.authentication.models import LeafseeUser
+from backend.apps.authentication.models import LeafseeUser
 
-from wrappers.model_wrappers import extend_choices
+from backend.wrappers.model_wrappers import extend_choices
 
 
 class Rating(models.TextChoices):

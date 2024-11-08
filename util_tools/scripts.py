@@ -14,15 +14,22 @@ def manager():
     )
 
 
+def gunicorn():
+    subprocess.run(
+        ["poetry", "run", "gunicorn", "backend.configs.wsgi", *sys.argv[1:]],
+        check=False,
+    )
+
+
 def tailwind():
     subprocess.run(
         [
             "npx",
             "tailwindcss",
             "-i",
-            str(Path("apps/static/base/css/input.css")),
+            str(Path("backend/apps/static/base/css/input.css")),
             "-o",
-            str(Path("apps/static/base/css/out.css")),
+            str(Path("backend/apps/static/base/css/out.css")),
             *sys.argv[1:],
         ],
         shell=True,

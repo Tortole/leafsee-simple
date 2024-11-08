@@ -20,27 +20,27 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\apps\authentication\forms.py:50
+#: .\backend\apps\authentication\forms.py:50
 msgid "Even one of username or e-mail should have a value."
 msgstr "Должно быть указанно либо имя пользователя, либо e-mail."
 
-#: .\apps\authentication\forms.py:59
+#: .\backend\apps\authentication\forms.py:59
 msgid "Not valid username, e-mail or password."
 msgstr "Не верные имя пользователя, e-mail или пароль."
 
-#: .\apps\authentication\forms.py:64
+#: .\backend\apps\authentication\forms.py:64
 msgid "This account is inactive."
 msgstr "Этот аккаунт неактивен"
 
-#: .\apps\authentication\models.py:47
+#: .\backend\apps\authentication\models.py:47
 msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем пользователя уже существует."
 
-#: .\apps\authentication\models.py:57
+#: .\backend\apps\authentication\models.py:57
 msgid "A user with that e-mail already exists."
 msgstr "Пользователь с таким e-mail уже существует."
 
-#: .\apps\authentication\validators.py:17
+#: .\backend\apps\authentication\validators.py:17
 msgid ""
 "Invalid username: may contain only latin letters, numbers, and following "
 "characters: -_"
@@ -48,7 +48,7 @@ msgstr ""
 "Неверное имя пользователя: может содержать только латинские буквы, цифры и "
 "следующие символы: -_"
 
-#: .\apps\authentication\validators.py:27
+#: .\backend\apps\authentication\validators.py:27
 #, python-format
 msgid ""
 "Invalid nickname: may contain only latin letters, numbers, and following "
@@ -57,22 +57,22 @@ msgstr ""
 "Неверный никнейм: может содержать только латинские буквы, цифры и следующие "
 "символы: @#$%%^&*-_=+*"
 
-#: .\apps\authentication\validators.py:40
+#: .\backend\apps\authentication\validators.py:40
 msgid ""
 "Invalid first name: may contain only letters, numbers and space character."
 msgstr ""
 "Неверное имя: может содержать только буквы, цифры и символ пробела."
 
-#: .\apps\authentication\validators.py:45
+#: .\backend\apps\authentication\validators.py:45
 msgid ""
 "Invalid last name: may contain only letters, numbers and space character."
 msgstr ""
 "Неверная фамилия: может содержать только буквы, цифры и символ пробела."
 
-#: .\configs\settings.py:122
+#: .\backend\configs\settings.py:122
 msgid "English"
 msgstr "Английский"
 
-#: .\configs\settings.py:123
+#: .\backend\configs\settings.py:123
 msgid "Russian"
 msgstr "Русский"

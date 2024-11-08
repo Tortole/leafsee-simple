@@ -1,6 +1,18 @@
 version: "3.9"
 
 services:
+    nginx:
+        container_name: leafsee-simple-nginx
+        image: nginx:1.27.2-bookworm
+        restart: unless-stopped
+        build:
+            context: .
+            dockerfile: ./Dockerfile.nginx
+        ports:
+            - 5438:80
+        volumes:
+            - ../../nginx_configs/dev:/etc/nginx:ro
+
     postgres:
         container_name: leafsee-simple-postgresql
         image: postgres:16.2-bookworm

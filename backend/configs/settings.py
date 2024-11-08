@@ -15,13 +15,13 @@ from django.utils.translation import gettext_lazy as _
 import environ
 from pathlib import Path
 
-
-root = environ.Path(__file__)
-env = environ.Env()
-environ.Env.read_env()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Read variables from .env
+root = environ.Path(__file__)
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / ".env")
 
 
 # Quick-start development settings - unsuitable for production
@@ -33,7 +33,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -46,14 +46,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "apps.authentication",
-    "apps.videos",
+    "backend.apps.authentication",
+    "backend.apps.videos",
 ]
 
 AUTH_USER_MODEL = "authentication.LeafseeUser"
 
 AUTHENTICATION_BACKENDS = [
-    "apps.authentication.backends.UsernameEmailAuthenticationBackend",
+    "backend.apps.authentication.backends.UsernameEmailAuthenticationBackend",
 ]
 
 LOGOUT_REDIRECT_URL = "/"
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     "django.middleware.locale.LocaleMiddleware",
 ]
 
-ROOT_URLCONF = "configs.urls"
+ROOT_URLCONF = "backend.configs.urls"
 
 TEMPLATES = [
     {
@@ -84,13 +84,13 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ],
             "libraries": {
-                "load_files": "templatetags.load_files",
+                "load_files": "backend.templatetags.load_files",
             },
         },
     },
 ]
 
-WSGI_APPLICATION = "configs.wsgi.application"
+WSGI_APPLICATION = "backend.configs.wsgi.application"
 
 
 # Database

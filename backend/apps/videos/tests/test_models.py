@@ -11,8 +11,8 @@ import shutil
 import numpy as np
 from datetime import timedelta
 
-from apps.videos.models import Video
-from apps.authentication.models import LeafseeUser
+from backend.apps.videos.models import Video
+from backend.apps.authentication.models import LeafseeUser
 
 
 TEST_DATA_DIRECTORY = settings.MEDIA_ROOT / "temp_test_data"
