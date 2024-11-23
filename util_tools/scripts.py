@@ -5,7 +5,6 @@ Project scripts for run through Poetry
 import sys
 import argparse
 import subprocess
-from pathlib import Path
 
 
 def manager():
@@ -23,16 +22,7 @@ def gunicorn():
 
 def tailwind():
     subprocess.run(
-        [
-            "npx",
-            "tailwindcss",
-            "-i",
-            str(Path("backend/apps/static/base/css/input.css")),
-            "-o",
-            str(Path("backend/apps/static/base/css/out.css")),
-            *sys.argv[1:],
-        ],
-        shell=True,
+        ["npm", "run", "--prefix", "frontend", "t", *["--", *sys.argv[1:]]],
         check=False,
     )
 

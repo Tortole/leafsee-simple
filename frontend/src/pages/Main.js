@@ -1,0 +1,13 @@
+import React from "react";
+import MainShell from "../components/shells/mainShell";
+
+function Main() {
+    return (
+        <div>
+            <MainShell />
+            <h1 class="w-8">This is Home page</h1>
+        </div>
+    );
+}
+
+export default Main;

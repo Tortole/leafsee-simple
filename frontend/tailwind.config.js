@@ -3,7 +3,7 @@
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-    content: ["backend/apps/**/*.{html,js}"],
+    content: ["src/**/*.{html,js}", "public/**/*.{html,js}"],
     theme: {
         clipPolygonSliceSize: {
             1: "10px",
@@ -34,7 +34,7 @@ module.exports = {
             },
             fontFamily: {
                 play: ["Play"],
-                jockeyone: ["'Jockey One'"],
+                jockeyone: ["JockeyOne"],
             },
         },
     },
