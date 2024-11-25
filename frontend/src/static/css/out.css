@@ -549,8 +549,20 @@ video {
     display: none;
 }
 
+.z-10 {
+    z-index: 10;
+}
+
 .float-left {
     float: left;
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
+.ml-5 {
+    margin-left: 1.25rem;
 }
 
 .flex {
@@ -562,8 +574,69 @@ video {
     height: 2.5rem;
 }
 
+.size-8 {
+    width: 2rem;
+    height: 2rem;
+}
+
+.h-9 {
+    height: 2.25rem;
+}
+
+.h-7 {
+    height: 1.75rem;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.h-12 {
+    height: 3rem;
+}
+
+.w-7 {
+    width: 1.75rem;
+}
+
 .w-8 {
     width: 2rem;
+}
+
+.w-max {
+    width: max-content;
+}
+
+.w-5 {
+    width: 1.25rem;
+}
+
+.w-\[500px\] {
+    width: 500px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.w-12 {
+    width: 3rem;
+}
+
+.w-36 {
+    width: 9rem;
+}
+
+.w-24 {
+    width: 6rem;
+}
+
+.w-6 {
+    width: 1.5rem;
+}
+
+.w-\[140px\] {
+    width: 140px;
 }
 
 .items-center {
@@ -572,6 +645,94 @@ video {
 
 .justify-center {
     justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-5 {
+    gap: 1.25rem;
+}
+
+.bg-green-l {
+    --tw-bg-opacity: 1;
+    background-color: rgb(116 255 130 / var(--tw-bg-opacity, 1));
+}
+
+.bg-green-n {
+    --tw-bg-opacity: 1;
+    background-color: rgb(43 207 60 / var(--tw-bg-opacity, 1));
+}
+
+.bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+.pl-2 {
+    padding-left: 0.5rem;
+}
+
+.pl-5 {
+    padding-left: 1.25rem;
+}
+
+.pr-3 {
+    padding-right: 0.75rem;
+}
+
+.pr-5 {
+    padding-right: 1.25rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.font-jockeyone {
+    font-family: JockeyOne;
+}
+
+.font-play {
+    font-family: Play;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.clip-polygon-steep-2 {
+    clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 10px,
+        100% calc(100% - 10px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 10px),
+        0% 10px
+    );
 }
 
 @font-face {

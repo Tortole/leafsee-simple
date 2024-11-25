@@ -5,7 +5,7 @@ function Main() {
     return (
         <div>
             <MainShell />
-            <h1 class="w-8">This is Home page</h1>
+            <h1 class="w-24">This is Home page</h1>
         </div>
     );
 }
