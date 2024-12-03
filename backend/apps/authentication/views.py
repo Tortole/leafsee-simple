@@ -53,6 +53,27 @@ class LoginView(View):
             return JsonResponse({"success": False, "errors": form.errors})
 
 
+class AuthenticatedStatusView(View):
+    """
+    View to check if the user is authenticated.
+    Accepts only get requests.
+    """
+
+    http_method_names = ["get"]
+
+    def get(self, request):
+        """
+        Check if the user is authenticated and return response with the user's authentication status
+        """
+
+        if request.user.is_authenticated:
+            return JsonResponse(
+                {"authenticated": True, "username": request.user.username}
+            )
+        else:
+            return JsonResponse({"authenticated": False})
+
+
 class RegistrationView(View):
     """
     View for registration.

@@ -56,6 +56,21 @@ AUTHENTICATION_BACKENDS = [
     "backend.apps.authentication.backends.UsernameEmailAuthenticationBackend",
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ]
+}
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# SESSION_COOKIE_SECURE = True  # Use HTTPS for cookies
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to cookies
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Store sessions in the database
+SESSION_COOKIE_SAMESITE = "Lax"  # Prevent CSRF attacks
+
+CSRF_TRUSTED_ORIGINS = ["http://*", "https://*"]
+
 LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [

@@ -1,3 +1,7 @@
+import React, { useContext } from "react";
+
+import { AuthContext } from "../../services/authentication/authStatus";
+
 import { ReactComponent as BurgerMenuButton } from "../../static/svg/burger_menu_button.svg";
 import { ReactComponent as LeafIcon } from "../../static/svg/leaf_icon.svg";
 import { ReactComponent as Magnifier } from "../../static/svg/magnifier.svg";
@@ -20,19 +24,19 @@ function toggleElement(elementId) {
 function TopbarBurgerButton() {
     return (
         <button
-            class="clip-polygon-octagon hover:bg-green-l-hover active:bg-green-l-onclick float-left flex size-10 items-center justify-center"
-            onclick="toggleElement('base-sidebar')"
+            className="clip-polygon-octagon hover:bg-green-l-hover active:bg-green-l-onclick float-left flex size-10 items-center justify-center"
+            onClick="toggleElement('base-sidebar')"
         >
-            <BurgerMenuButton class="w-8" />
+            <BurgerMenuButton className="w-8" />
         </button>
     );
 }
 
 function TopbarIcon() {
     return (
-        <button class="bg-green-l clip-polygon-steep-2 float-left ml-5 flex h-9 w-max items-center px-4">
-            <LeafIcon class="float-left w-7" />
-            <p class="font-jockeyone float-left ml-2 text-center text-3xl">
+        <button className="bg-green-l clip-polygon-steep-2 float-left ml-5 flex h-9 w-max items-center px-4">
+            <LeafIcon className="float-left w-7" />
+            <p className="font-jockeyone float-left ml-2 text-center text-3xl">
                 LeafSee
             </p>
         </button>
@@ -41,13 +45,13 @@ function TopbarIcon() {
 
 function TopbarSearch() {
     return (
-        <div class="clip-polygon-steep-2 h-7 w-max">
-            <button class="bg-green-l hover:bg-green-l-hover active:bg-green-l-onclick float-left h-full pl-5 pr-3 text-center">
-                <Magnifier class="w-5" />
+        <div className="clip-polygon-steep-2 h-7 w-max">
+            <button className="bg-green-l hover:bg-green-l-hover active:bg-green-l-onclick float-left h-full pl-5 pr-3 text-center">
+                <Magnifier className="w-5" />
             </button>
             <input
                 type="text"
-                class="float-left h-full w-[500px] pl-2 pr-5 outline-none"
+                className="float-left h-full w-[500px] pl-2 pr-5 outline-none"
                 name="search"
                 placeholder="Поиск"
             />
@@ -57,18 +61,18 @@ function TopbarSearch() {
 
 function TopbarAuthenticated() {
     return (
-        <div class="flex h-full w-max items-center justify-between gap-4">
+        <div className="flex h-full w-max items-center justify-between gap-4">
             <a href="{% url 'video-list' %}">
-                <VideoUpload class="w-8" />
+                <VideoUpload className="w-8" />
             </a>
-            <button onclick="toggleElement('base-notifications')">
-                <NotificationBell class="w-6" />
+            <button onClick="toggleElement('base-notifications')">
+                <NotificationBell className="w-6" />
             </button>
             <button
-                class="clip-polygon-octagon flex size-8 items-center justify-center bg-white"
-                onclick="toggleElement('base-account-submenu')"
+                className="clip-polygon-octagon flex size-8 items-center justify-center bg-white"
+                onClick="toggleElement('base-account-submenu')"
             >
-                <UserIcon class="w-7" />
+                <UserIcon className="w-7" />
             </button>
         </div>
     );
@@ -76,16 +80,16 @@ function TopbarAuthenticated() {
 
 function TopbarNotAuthenticated() {
     return (
-        <div class="flex h-full w-max items-center justify-between gap-5">
+        <div className="flex h-full w-max items-center justify-between gap-5">
             <button
-                class="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
-                onclick="toggleElement('login-form-wrapper')"
+                className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
+                onClick="toggleElement('login-form-wrapper')"
             >
                 Вход
             </button>
             <button
-                class="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
-                onclick="toggleElement('registration-form-wrapper')"
+                className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
+                onClick="toggleElement('registration-form-wrapper')"
             >
                 Регистрация
             </button>
@@ -100,19 +104,27 @@ function TopbarNotAuthenticated() {
 // }
 
 function Topbar() {
+    const { authenticated, username } = useContext(AuthContext);
+    // !!!
+    console.log(`authenticated - ${authenticated}, username - ${username}`);
+
     return (
         <div
             id="base-topbar"
-            class="bg-green-n z-10 flex h-12 w-full items-center justify-between px-5"
+            className="bg-green-n z-10 flex h-12 w-full items-center justify-between px-5"
         >
             <div>
-                <div class="flex items-center">
+                <div className="flex items-center">
                     <TopbarBurgerButton />
                     <TopbarIcon />
                 </div>
             </div>
             <TopbarSearch />
-            <TopbarAuthenticated />
+            {authenticated ? (
+                <TopbarAuthenticated />
+            ) : (
+                <TopbarNotAuthenticated />
+            )}
         </div>
     );
 }
