@@ -18,8 +18,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
-        authenticated: false,
-        username: null,
+        authenticated: null,
     });
 
     useEffect(() => {
