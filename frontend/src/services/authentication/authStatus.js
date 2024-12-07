@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 
 import getCookie from "../getCookie";
 
-export const fetchAuthenticatedStatus = async () => {
+async function fetchAuthenticatedStatus() {
     const csrfToken = getCookie("csrftoken");
     const response = await fetch("/auth/status", {
         headers: {
@@ -12,26 +12,22 @@ export const fetchAuthenticatedStatus = async () => {
     });
     const data = await response.json();
     return data;
-};
+}
 
-export const AuthContext = createContext();
+export const AuthStatusContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export function AuthStatusProvider({ children }) {
     const [authState, setAuthState] = useState({
-        authenticated: null,
+        isUserAuthenticated: null,
     });
 
     useEffect(() => {
-        const checkAuth = async () => {
-            const data = await fetchAuthenticatedStatus();
-            setAuthState(data);
-        };
-        checkAuth();
+        fetchAuthenticatedStatus().then((data) => setAuthState(data));
     }, []);
 
     return (
-        <AuthContext.Provider value={authState}>
+        <AuthStatusContext.Provider value={authState}>
             {children}
-        </AuthContext.Provider>
+        </AuthStatusContext.Provider>
     );
-};
+}

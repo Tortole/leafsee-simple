@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -6,7 +7,10 @@ import "./static/css/out.css";
 
 import Main from "./pages/Main";
 
-import { AuthProvider } from "./services/authentication/authStatus";
+import { AuthStatusProvider } from "./services/authentication/authStatus";
+
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 const router = createBrowserRouter([
     {
@@ -18,8 +22,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <AuthProvider>
+        <AuthStatusProvider>
             <RouterProvider router={router} />
-        </AuthProvider>
+        </AuthStatusProvider>
     </React.StrictMode>,
 );

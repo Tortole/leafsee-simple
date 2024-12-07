@@ -1,5 +1,5 @@
 import React from "react";
-import MainShell from "../components/shells/mainShell";
+import MainShell from "../components/shells/mainShell/mainShell";
 
 function Main() {
     return (

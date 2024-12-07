@@ -67,9 +67,9 @@ class AuthenticatedStatusView(View):
         """
 
         if request.user.is_authenticated:
-            return JsonResponse({"authenticated": True})
+            return JsonResponse({"isUserAuthenticated": True})
         else:
-            return JsonResponse({"authenticated": False})
+            return JsonResponse({"isUserAuthenticated": False})
 
 
 class RegistrationView(View):
