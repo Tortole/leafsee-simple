@@ -1,13 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 
-import getCookie from "../getCookie";
-
 async function fetchAuthenticatedStatus() {
-    const csrfToken = getCookie("csrftoken");
     const response = await fetch("/auth/status", {
-        headers: {
-            "X-CSRFToken": csrfToken,
-        },
         credentials: "include",
     });
     const data = await response.json();

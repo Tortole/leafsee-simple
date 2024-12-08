@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { useState, createContext } from "react";
 
 import Topbar from "./topbar.js";
 import NotificationMenu from "./notificationMenu.js";
@@ -14,8 +14,8 @@ export default function MainShell(props) {
         useState(false);
     const [isTopbarMenuPanelVisible, setIsTopbarMenuPanelVisible] =
         useState(false);
-    const [isLoginPanel, setIsLoginPanel] = useState(false);
-    const [isRegisterPanel, setIsRegisterPanel] = useState(false);
+    const [isLoginPanelVisible, setIsLoginPanelVisible] = useState(false);
+    const [isRegisterPanelVisible, setIsRegisterPanelVisible] = useState(false);
 
     return (
         <div>
@@ -23,13 +23,13 @@ export default function MainShell(props) {
                 value={{
                     setIsNotificationsPanelVisible,
                     setIsTopbarMenuPanelVisible,
-                    setIsLoginPanel,
-                    setIsRegisterPanel,
+                    setIsLoginPanelVisible,
+                    setIsRegisterPanelVisible,
                 }}
             >
                 <Topbar />
-                {isLoginPanel && <LoginPanel />}
-                {isRegisterPanel && <RegisterPanel />}
+                {isLoginPanelVisible && <LoginPanel />}
+                {isRegisterPanelVisible && <RegisterPanel />}
             </MainShellPanelsVisibilityContext.Provider>
             <div className="top-12 flex h-[calc(100vh-3rem)] w-full">
                 <Sidebar />

@@ -2,35 +2,35 @@ function RegisterForm() {
     return (
         <form
             id="registration-form"
-            class="flex flex-col items-center gap-5"
+            className="flex flex-col items-center gap-5"
             method="POST"
             action="{% url 'registration' %}"
         >
             <p
                 id="registration-error-text"
-                class="font-play text-red-l flex w-[500px] flex-col gap-2 text-left"
+                className="font-play text-red-l flex w-[500px] flex-col gap-2 text-left"
             ></p>
 
-            <div class="bg-green-l clip-polygon-right-2 p-[1px]">
-                <div class="bg-gray-n clip-polygon-right-2 flex size-max flex-col items-center gap-5 p-5">
-                    <p class="font-play w-full text-left text-xs">
+            <div className="bg-green-l clip-polygon-right-2 p-[1px]">
+                <div className="bg-gray-n clip-polygon-right-2 flex size-max flex-col items-center gap-5 p-5">
+                    <p className="font-play w-full text-left text-xs">
                         Обязательные поля
                     </p>
 
                     <div
                         id="registration-username-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="username"
                             >
                                 Имя пользователя
                             </label>
                             <input
                                 id="username"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="text"
                                 name="username"
                                 required
@@ -40,18 +40,18 @@ function RegisterForm() {
 
                     <div
                         id="registration-password1-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="password1"
                             >
                                 Пароль
                             </label>
                             <input
                                 id="password1"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="password"
                                 name="password1"
                                 required
@@ -61,18 +61,18 @@ function RegisterForm() {
 
                     <div
                         id="registration-password2-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="password2"
                             >
                                 Пароль ещё раз
                             </label>
                             <input
                                 id="password2"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="password"
                                 name="password2"
                                 required
@@ -82,25 +82,25 @@ function RegisterForm() {
                 </div>
             </div>
 
-            <div class="bg-green-l clip-polygon-right-2 p-[1px]">
-                <div class="bg-gray-n clip-polygon-right-2 flex size-max flex-col items-center gap-5 p-5">
-                    <p class="font-play w-full text-left text-xs">
+            <div className="bg-green-l clip-polygon-right-2 p-[1px]">
+                <div className="bg-gray-n clip-polygon-right-2 flex size-max flex-col items-center gap-5 p-5">
+                    <p className="font-play w-full text-left text-xs">
                         Необязательные поля
                     </p>
                     <div
                         id="registration-email-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="email"
                             >
                                 Электронная почта
                             </label>
                             <input
                                 id="email"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="text"
                                 name="email"
                             />
@@ -109,18 +109,18 @@ function RegisterForm() {
 
                     <div
                         id="registration-nickname-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="nickname"
                             >
                                 Никнейм
                             </label>
                             <input
                                 id="nickname"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="text"
                                 name="nickname"
                             />
@@ -129,18 +129,18 @@ function RegisterForm() {
 
                     <div
                         id="registration-first-name-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="first-name"
                             >
                                 Имя
                             </label>
                             <input
                                 id="first-name"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="text"
                                 name="first_name"
                             />
@@ -149,18 +149,18 @@ function RegisterForm() {
 
                     <div
                         id="registration-last-name-inputwraper"
-                        class="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
+                        className="registration-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
                     >
-                        <div class="clip-polygon-steep-2 flex flex-row">
+                        <div className="clip-polygon-steep-2 flex flex-row">
                             <label
-                                class="bg-green-l font-play h-full w-[210px] text-center"
+                                className="bg-green-l font-play h-full w-[210px] text-center"
                                 for="last-name"
                             >
                                 Фамилия
                             </label>
                             <input
                                 id="last-name"
-                                class="w-[350px] pl-2 pr-5 outline-none"
+                                className="w-[350px] pl-2 pr-5 outline-none"
                                 type="text"
                                 name="last_name"
                             />
@@ -170,7 +170,7 @@ function RegisterForm() {
             </div>
 
             <button
-                class="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick w-44 text-xl outline-none"
+                className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick w-44 text-xl outline-none"
                 type="submit"
             >
                 Регистрация
@@ -184,25 +184,25 @@ export default function RegisterPanel() {
     return (
         <div
             id="registration-form-wrapper"
-            class="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-24"
+            className="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-24"
             onclick="toggleElement('registration-form-wrapper')"
         >
             <div
-                class="clip-polygon-right-2 z-[110] size-max"
+                className="clip-polygon-right-2 z-[110] size-max"
                 onclick="stopPropagation(event)"
             >
-                <div class="bg-gray-d flex h-max w-full flex-row">
+                <div className="bg-gray-d flex h-max w-full flex-row">
                     <button
-                        class="font-play w-1/2 py-3 text-3xl"
+                        className="font-play w-1/2 py-3 text-3xl"
                         onclick="switchLoginRegister()"
                     >
                         Вход
                     </button>
-                    <div class="clip-polygon-right-top bg-gray-n font-play w-1/2 py-3 text-center text-3xl">
+                    <div className="clip-polygon-right-top bg-gray-n font-play w-1/2 py-3 text-center text-3xl">
                         Регистрация
                     </div>
                 </div>
-                <div class="bg-gray-n size-max min-h-[300px] min-w-[800px] p-14">
+                <div className="bg-gray-n size-max min-h-[300px] min-w-[800px] p-14">
                     <RegisterForm />
                 </div>
             </div>

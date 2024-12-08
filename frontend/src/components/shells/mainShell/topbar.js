@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { AuthStatusContext } from "../../../services/authentication/authStatus.js";
+import { AuthStatusContext } from "../../../services/authStatus.js";
 import { MainShellPanelsVisibilityContext } from "./mainShell.js";
 
 import { ReactComponent as BurgerMenuButton } from "../../../static/svg/burger_menu_button.svg";
@@ -71,17 +71,21 @@ function TopbarAuthenticated() {
 }
 
 function TopbarNotAuthenticated() {
+    const { setIsLoginPanelVisible, setIsRegisterPanelVisible } = useContext(
+        MainShellPanelsVisibilityContext,
+    );
+
     return (
         <div className="flex h-full w-max items-center justify-between gap-5">
             <button
                 className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
-                onClick="toggleElement('login-form-wrapper')"
+                onClick={() => setIsLoginPanelVisible((i) => !i)}
             >
                 Вход
             </button>
             <button
                 className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
-                onClick="toggleElement('registration-form-wrapper')"
+                onClick={() => setIsRegisterPanelVisible((i) => !i)}
             >
                 Регистрация
             </button>

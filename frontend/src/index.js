@@ -7,7 +7,7 @@ import "./static/css/out.css";
 
 import Main from "./pages/Main";
 
-import { AuthStatusProvider } from "./services/authentication/authStatus";
+import { AuthStatusProvider } from "./services/authStatus";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";

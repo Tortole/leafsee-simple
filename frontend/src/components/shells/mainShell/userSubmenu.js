@@ -1,4 +1,4 @@
-import logout from "../../../services/authentication/logout.js";
+import axios from "axios";
 
 function UserSubmenuButton({ text, onClickAction }) {
     return (
@@ -25,7 +25,7 @@ export default function UserSubmenu() {
                 />
                 <UserSubmenuButton
                     text="Выйти из аккаунта"
-                    onClickAction={() => logout()}
+                    onClickAction={() => axios.post("/auth/logout")}
                 />
             </div>
         </div>

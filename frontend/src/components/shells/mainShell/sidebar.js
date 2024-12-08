@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { AuthStatusContext } from "../../../services/authentication/authStatus.js";
+import { AuthStatusContext } from "../../../services/authStatus.js";
 
 import { ReactComponent as UserIcon } from "../../../static/svg/user_icon.svg";
 

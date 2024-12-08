@@ -3,7 +3,6 @@ Module with views for authentication app
 """
 
 from django.views import View
-from django.urls import reverse
 from django.http import JsonResponse
 
 from django.contrib.auth import login as auth_login
@@ -18,7 +17,6 @@ class LoginView(View):
     Accepts only post requests.
     """
 
-    template_name = "authentication/login_form.html"
     authentication_form = LoginForm
 
     http_method_names = ["post"]
@@ -27,9 +25,6 @@ class LoginView(View):
         """
         Filter login field value for username and e-mail, validate data and authenticate user
         """
-
-        # Redirect page for successful login
-        next_page = request.POST.get("next", reverse("main"))
 
         form_data = {}
         form_data["password"] = request.POST["password"]
@@ -48,7 +43,7 @@ class LoginView(View):
 
         if form.is_valid():
             auth_login(request, form.get_user())
-            return JsonResponse({"success": True, "next_page": next_page})
+            return JsonResponse({"success": True})
         else:
             return JsonResponse({"success": False, "errors": form.errors})
 
@@ -78,7 +73,6 @@ class RegistrationView(View):
     Accepts only post requests.
     """
 
-    template_name = "authentication/registration_form.html"
     class_form = RegistrationForm
 
     http_method_names = ["post"]
@@ -88,14 +82,11 @@ class RegistrationView(View):
         Registers user by data in POST request
         """
 
-        # Redirect page for successful registration
-        next_page = request.POST.get("next", reverse("main"))
-
         form = self.class_form(request.POST)
 
         if form.is_valid():
             auth_login(request, form.save())
-            return JsonResponse({"success": True, "next_page": next_page})
+            return JsonResponse({"success": True})
         else:
             return JsonResponse({"success": False, "errors": form.errors})
 
