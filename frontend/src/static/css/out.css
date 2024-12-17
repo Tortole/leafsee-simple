@@ -109,7 +109,7 @@
 }
 
 /*
-! tailwindcss v3.4.15 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -628,7 +628,9 @@ video {
 }
 
 .size-max {
+    width: -webkit-max-content;
     width: max-content;
+    height: -webkit-max-content;
     height: max-content;
 }
 
@@ -665,6 +667,7 @@ video {
 }
 
 .h-max {
+    height: -webkit-max-content;
     height: max-content;
 }
 
@@ -749,6 +752,7 @@ video {
 }
 
 .w-max {
+    width: -webkit-max-content;
     width: max-content;
 }
 
@@ -758,6 +762,10 @@ video {
 
 .flex-grow {
     flex-grow: 1;
+}
+
+.cursor-default {
+    cursor: default;
 }
 
 .flex-row {
@@ -840,6 +848,11 @@ video {
 .bg-green-n {
     --tw-bg-opacity: 1;
     background-color: rgb(43 207 60 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-l {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 116 116 / var(--tw-bg-opacity, 1));
 }
 
 .bg-white {
@@ -996,6 +1009,16 @@ video {
 }
 
 .clip-polygon-right-2 {
+    -webkit-clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 20px,
+        100% calc(100% - 20px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 20px),
+        0% 20px
+    );
     clip-path: polygon(
         20px 0%,
         calc(100% - 20px) 0%,
@@ -1009,6 +1032,16 @@ video {
 }
 
 .clip-polygon-steep-2 {
+    -webkit-clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 10px,
+        100% calc(100% - 10px),
+        calc(100% - 20px) 100%,
+        20px 100%,
+        0% calc(100% - 10px),
+        0% 10px
+    );
     clip-path: polygon(
         20px 0%,
         calc(100% - 20px) 0%,
@@ -1064,6 +1097,14 @@ video {
 }
 
 .clip-polygon-right-top {
+    -webkit-clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 20px,
+        100% 100%,
+        0% 100%,
+        0% 20px
+    );
     clip-path: polygon(
         20px 0%,
         calc(100% - 20px) 0%,
@@ -1075,6 +1116,16 @@ video {
 }
 
 .clip-polygon-octagon {
+    -webkit-clip-path: polygon(
+        30% 0%,
+        70% 0%,
+        100% 30%,
+        100% 70%,
+        70% 100%,
+        30% 100%,
+        0% 70%,
+        0% 30%
+    );
     clip-path: polygon(
         30% 0%,
         70% 0%,

@@ -2,6 +2,8 @@
 Module with views for authentication app
 """
 
+import json
+
 from django.views import View
 from django.http import JsonResponse
 
@@ -29,23 +31,25 @@ class LoginView(View):
         form_data = {}
         form_data["password"] = request.POST["password"]
 
-        login = request.POST["login"]
-        if "@" in login:
-            # If login field contain e-mail
+        loginname = request.POST["loginname"]
+        if "@" in loginname:
+            # If loginname field contain e-mail
             form_data["username"] = None
-            form_data["email"] = login
+            form_data["email"] = loginname
         else:
-            # If login field contain username
-            form_data["username"] = login
+            # If loginname field contain username
+            form_data["username"] = loginname
             form_data["email"] = None
 
         form = self.authentication_form(request, data=form_data)
 
         if form.is_valid():
             auth_login(request, form.get_user())
-            return JsonResponse({"success": True})
+            return JsonResponse({"message": "success"}, status=200)
         else:
-            return JsonResponse({"success": False, "errors": form.errors})
+            return JsonResponse(
+                {"errors": json.loads(form.errors.as_json())}, status=400
+            )
 
 
 class AuthenticatedStatusView(View):
@@ -62,9 +66,9 @@ class AuthenticatedStatusView(View):
         """
 
         if request.user.is_authenticated:
-            return JsonResponse({"isUserAuthenticated": True})
+            return JsonResponse({"isUserAuthenticated": True}, status=200)
         else:
-            return JsonResponse({"isUserAuthenticated": False})
+            return JsonResponse({"isUserAuthenticated": False}, status=200)
 
 
 class RegistrationView(View):

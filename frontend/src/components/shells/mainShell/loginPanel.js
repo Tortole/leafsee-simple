@@ -1,81 +1,121 @@
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useContext, useState, useEffect, useActionState } from "react";
 
-import { MainShellPanelsVisibilityContext } from "./mainShell.js";
+import {
+    inputDefaultColorClass,
+    inputErrorColorClass,
+    MainShellPanelsVisibilityContext,
+} from "./mainShell.js";
+
+function LoginInput({ inputName, inputType, labelText, inputColor }) {
+    return (
+        <div className={`clip-polygon-steep-2 size-max p-[2px] ${inputColor}`}>
+            <div className="clip-polygon-steep-2 flex flex-row">
+                <label
+                    className={`font-play h-full w-[210px] text-center ${inputColor}`}
+                    htmlFor={`login-${inputName}`}
+                >
+                    {labelText}
+                </label>
+                <input
+                    id={`login-${inputName}`}
+                    className="w-[350px] pl-2 pr-5 outline-none"
+                    type={inputType}
+                    name={inputName}
+                    required
+                />
+            </div>
+        </div>
+    );
+}
 
 function LoginForm() {
-    const [errorDisplayText, setErrorDisplayText] = useState("");
+    const [loginnameColor, setLoginnameColor] = useState(
+        inputDefaultColorClass,
+    );
+    const [passwordColor, setPasswordColor] = useState(inputDefaultColorClass);
+    const [errorMessages, setErrorMessages] = useState([]);
 
-    function submitForm(formData) {
-        console.log(formData);
-
-        // axios
-        //     .post("/auth/login", formData, {
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //     })
-        //     .catch((error) => setErrorDisplayText(error));
+    // Post request to login
+    async function login(prevState, formData) {
+        let errors = await axios
+            .post(
+                "/auth/login",
+                {
+                    loginname: formData.get("loginname"),
+                    password: formData.get("password"),
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        Accept: "application/json",
+                    },
+                },
+            )
+            .then((response) => {
+                return {};
+            })
+            .catch((error) => {
+                return error.response.data["errors"];
+            });
+        return errors;
     }
 
+    // Get errors, if any
+    const [errors, loginAction] = useActionState(login, {});
+
+    // Display errors, if any
+    useEffect(() => {
+        // Clear the error text box and remove the error color from the input fields
+        setErrorMessages([]);
+        setLoginnameColor(inputDefaultColorClass);
+        setPasswordColor(inputDefaultColorClass);
+
+        for (const [field, errorsList] of Object.entries(errors)) {
+            // Color field with error
+            switch (field) {
+                case "__all__":
+                    setLoginnameColor(inputErrorColorClass);
+                    setPasswordColor(inputErrorColorClass);
+                    break;
+                case "email":
+                case "username":
+                    setLoginnameColor(inputErrorColorClass);
+                    break;
+                case "password":
+                    setPasswordColor(inputErrorColorClass);
+                    break;
+                default:
+                    break;
+            }
+            // Write error message
+            errorsList.forEach((error) => {
+                setErrorMessages((e) => [...e, error["message"]]);
+            });
+        }
+    }, [errors]);
+
+    // Form
     return (
-        <form
-            id="login-form"
-            className="flex flex-col items-center gap-5"
-            onSubmit={(event) => {
-                event.preventDefault();
-                console.log(event);
-            }}
-            action={submitForm}
-        >
-            <p
-                id="login-error-text"
-                className="font-play text-red-l w-[500px] text-left"
-            >
-                {errorDisplayText}
-            </p>
-
-            <div
-                id="login-login-inputwraper"
-                className="login-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
-            >
-                <div className="clip-polygon-steep-2 flex flex-row">
-                    <label
-                        className="bg-green-l font-play h-full w-[210px] text-center"
-                        for="login"
-                    >
-                        Логин или E-mail
-                    </label>
-                    <input
-                        id="login"
-                        className="w-[350px] pl-2 pr-5 outline-none"
-                        type="text"
-                        name="login"
-                        required
-                    />
-                </div>
+        <form className="flex flex-col items-center gap-5" action={loginAction}>
+            <div className="font-play text-red-l w-[500px] text-left">
+                {errorMessages.map((message) => (
+                    <p>{message}</p>
+                ))}
             </div>
 
-            <div
-                id="login-password-inputwraper"
-                className="login-inputwraper bg-green-l clip-polygon-steep-2 size-max p-[2px]"
-            >
-                <div className="clip-polygon-steep-2 flex flex-row">
-                    <label
-                        className="bg-green-l font-play h-full w-[210px] text-center"
-                        for="password"
-                    >
-                        Пароль
-                    </label>
-                    <input
-                        id="password"
-                        className="w-[350px] pl-2 pr-5 outline-none"
-                        type="password"
-                        name="password"
-                        required
-                    />
-                </div>
-            </div>
+            <LoginInput
+                inputName="loginname"
+                inputType="text"
+                labelText="Логин или E-mail"
+                inputColor={loginnameColor}
+            />
+            <LoginInput
+                inputName="password"
+                inputType="password"
+                labelText="Пароль"
+                inputColor={passwordColor}
+            />
 
             <button
                 className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick w-36 text-xl outline-none"
@@ -94,7 +134,6 @@ export default function LoginPanel() {
 
     return (
         <div
-            id="login-form-wrapper"
             className="absolute left-0 top-0 z-[100] flex h-full w-full justify-center bg-black bg-opacity-50 pt-24"
             onClick={() => setIsLoginPanelVisible(false)}
         >

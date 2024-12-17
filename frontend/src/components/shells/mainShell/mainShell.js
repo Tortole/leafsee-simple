@@ -7,6 +7,9 @@ import Sidebar from "./sidebar.js";
 import LoginPanel from "./loginPanel.js";
 import RegisterPanel from "./registerPanel.js";
 
+export const inputDefaultColorClass = "bg-green-l";
+export const inputErrorColorClass = "bg-red-l";
+
 export const MainShellPanelsVisibilityContext = createContext();
 
 export default function MainShell(props) {
