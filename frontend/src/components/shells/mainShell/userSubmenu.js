@@ -25,7 +25,11 @@ export default function UserSubmenu() {
                 />
                 <UserSubmenuButton
                     text="Выйти из аккаунта"
-                    onClickAction={() => axios.post("/auth/logout")}
+                    onClickAction={() =>
+                        axios
+                            .post("/auth/logout")
+                            .then(window.location.reload())
+                    }
                 />
             </div>
         </div>

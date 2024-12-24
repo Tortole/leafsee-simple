@@ -7,12 +7,24 @@ import {
     MainShellPanelsVisibilityContext,
 } from "./mainShell.js";
 
-function LoginInput({ inputName, inputType, labelText, inputColor }) {
+function LoginInput({
+    inputName,
+    inputType,
+    labelText,
+    labelColor,
+    isKeepValueAfterSubmit = false,
+}) {
+    const [inputValue, setInputValue] = useState("");
+
+    function keepValue(event) {
+        setInputValue(event.target.value);
+    }
+
     return (
-        <div className={`clip-polygon-steep-2 size-max p-[2px] ${inputColor}`}>
+        <div className={`clip-polygon-steep-2 size-max p-[2px] ${labelColor}`}>
             <div className="clip-polygon-steep-2 flex flex-row">
                 <label
-                    className={`font-play h-full w-[210px] text-center ${inputColor}`}
+                    className={`font-play h-full w-[210px] text-center ${labelColor}`}
                     htmlFor={`login-${inputName}`}
                 >
                     {labelText}
@@ -22,6 +34,10 @@ function LoginInput({ inputName, inputType, labelText, inputColor }) {
                     className="w-[350px] pl-2 pr-5 outline-none"
                     type={inputType}
                     name={inputName}
+                    {...(isKeepValueAfterSubmit && {
+                        value: inputValue,
+                        onChange: keepValue,
+                    })}
                     required
                 />
             </div>
@@ -53,6 +69,7 @@ function LoginForm() {
                 },
             )
             .then((response) => {
+                window.location.reload();
                 return {};
             })
             .catch((error) => {
@@ -108,13 +125,14 @@ function LoginForm() {
                 inputName="loginname"
                 inputType="text"
                 labelText="Логин или E-mail"
-                inputColor={loginnameColor}
+                labelColor={loginnameColor}
+                isKeepValueAfterSubmit={true}
             />
             <LoginInput
                 inputName="password"
                 inputType="password"
                 labelText="Пароль"
-                inputColor={passwordColor}
+                labelColor={passwordColor}
             />
 
             <button
