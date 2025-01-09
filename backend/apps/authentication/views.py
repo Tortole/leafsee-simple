@@ -90,9 +90,11 @@ class RegistrationView(View):
 
         if form.is_valid():
             auth_login(request, form.save())
-            return JsonResponse({"success": True})
+            return JsonResponse({"message": "success"}, status=200)
         else:
-            return JsonResponse({"success": False, "errors": form.errors})
+            return JsonResponse(
+                {"errors": json.loads(form.errors.as_json())}, status=400
+            )
 
 
 class LogoutView(AuthLogoutView):

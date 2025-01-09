@@ -3,6 +3,7 @@ Module with models for user and relationships between them
 """
 
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 
@@ -42,8 +43,8 @@ class LeafseeUser(AbstractUser):
     username = models.CharField(
         "username",
         max_length=140,
-        unique=True,
         validators=username_validators,
+        unique=True,
         error_messages={
             "unique": _("A user with that username already exists."),
         },
@@ -52,33 +53,29 @@ class LeafseeUser(AbstractUser):
     email = models.EmailField(
         "email",
         max_length=140,
-        unique=True,
-        error_messages={
-            "unique": _("A user with that e-mail already exists."),
-        },
         blank=True,
     )
 
     first_name = models.CharField(
         "first name",
         max_length=140,
-        blank=True,
         validators=[FirstNameValidator()],
+        blank=True,
     )
     last_name = models.CharField(
         "last name",
         max_length=140,
-        blank=True,
         validators=[LastNameValidator()],
+        blank=True,
     )
     nickname = models.CharField(
         "nickname",
         max_length=140,
-        blank=True,
         validators=[NicknameValidator()],
+        blank=True,
     )
 
-    description = models.TextField("self-description")
+    description = models.TextField("self-description", blank=True)
     password_change_date = models.DateTimeField(
         "last password change date", default=datetime.date.today
     )
@@ -92,7 +89,17 @@ class LeafseeUser(AbstractUser):
 
     is_banned = models.BooleanField("is banned", default=False)
 
-    REQUIRED_FIELDS = ["email"]
+    class Meta:
+        constraints = [
+            # Uniqueness condition for email field, ignoring fields with empty email strings
+            models.UniqueConstraint(
+                fields=["email"],
+                condition=~Q(email=""),
+                name="unique_email_not_empty",
+                violation_error_code="unique",
+                violation_error_message=_("A user with that e-mail already exists."),
+            )
+        ]
 
 
 class Subscription(models.Model):

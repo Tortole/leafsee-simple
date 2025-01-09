@@ -71,9 +71,8 @@ function TopbarAuthenticated() {
 }
 
 function TopbarNotAuthenticated() {
-    const { setIsLoginPanelVisible, setIsRegisterPanelVisible } = useContext(
-        MainShellPanelsVisibilityContext,
-    );
+    const { setIsLoginPanelVisible, setIsRegistrationPanelVisible } =
+        useContext(MainShellPanelsVisibilityContext);
 
     return (
         <div className="flex h-full w-max items-center justify-between gap-5">
@@ -85,7 +84,7 @@ function TopbarNotAuthenticated() {
             </button>
             <button
                 className="bg-green-l font-play clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick h-7 w-[140px] px-4"
-                onClick={() => setIsRegisterPanelVisible((i) => !i)}
+                onClick={() => setIsRegistrationPanelVisible((i) => !i)}
             >
                 Регистрация
             </button>

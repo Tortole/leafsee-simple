@@ -46,11 +46,12 @@ function LoginInput({
 }
 
 function LoginForm() {
+    const [errorMessages, setErrorMessages] = useState([]);
+
     const [loginnameColor, setLoginnameColor] = useState(
         inputDefaultColorClass,
     );
     const [passwordColor, setPasswordColor] = useState(inputDefaultColorClass);
-    const [errorMessages, setErrorMessages] = useState([]);
 
     // Post request to login
     async function login(prevState, formData) {
@@ -107,6 +108,7 @@ function LoginForm() {
             }
             // Write error message
             errorsList.forEach((error) => {
+                // error["code"]
                 setErrorMessages((e) => [...e, error["message"]]);
             });
         }
@@ -133,6 +135,7 @@ function LoginForm() {
                 inputType="password"
                 labelText="Пароль"
                 labelColor={passwordColor}
+                isKeepValueAfterSubmit={false}
             />
 
             <button
@@ -146,9 +149,8 @@ function LoginForm() {
 }
 
 export default function LoginPanel() {
-    const { setIsLoginPanelVisible, setIsRegisterPanelVisible } = useContext(
-        MainShellPanelsVisibilityContext,
-    );
+    const { setIsLoginPanelVisible, setIsRegistrationPanelVisible } =
+        useContext(MainShellPanelsVisibilityContext);
 
     return (
         <div
@@ -166,7 +168,7 @@ export default function LoginPanel() {
                     <button
                         className="font-play w-1/2 py-3 text-3xl"
                         onClick={() => {
-                            setIsRegisterPanelVisible(true);
+                            setIsRegistrationPanelVisible(true);
                             setIsLoginPanelVisible(false);
                         }}
                     >

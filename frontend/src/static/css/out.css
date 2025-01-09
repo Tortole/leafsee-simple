@@ -764,10 +764,6 @@ video {
     flex-grow: 1;
 }
 
-.cursor-default {
-    cursor: default;
-}
-
 .flex-row {
     flex-direction: row;
 }

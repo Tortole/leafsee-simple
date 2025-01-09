@@ -5,7 +5,7 @@ import NotificationMenu from "./notificationMenu.js";
 import UserSubmenu from "./userSubmenu.js";
 import Sidebar from "./sidebar.js";
 import LoginPanel from "./loginPanel.js";
-import RegisterPanel from "./registerPanel.js";
+import RegistrationPanel from "./registrationPanel.js";
 
 export const inputDefaultColorClass = "bg-green-l";
 export const inputErrorColorClass = "bg-red-l";
@@ -18,7 +18,8 @@ export default function MainShell(props) {
     const [isTopbarMenuPanelVisible, setIsTopbarMenuPanelVisible] =
         useState(false);
     const [isLoginPanelVisible, setIsLoginPanelVisible] = useState(false);
-    const [isRegisterPanelVisible, setIsRegisterPanelVisible] = useState(false);
+    const [isRegistrationPanelVisible, setIsRegistrationPanelVisible] =
+        useState(false);
 
     return (
         <div>
@@ -27,12 +28,12 @@ export default function MainShell(props) {
                     setIsNotificationsPanelVisible,
                     setIsTopbarMenuPanelVisible,
                     setIsLoginPanelVisible,
-                    setIsRegisterPanelVisible,
+                    setIsRegistrationPanelVisible,
                 }}
             >
                 <Topbar />
                 {isLoginPanelVisible && <LoginPanel />}
-                {isRegisterPanelVisible && <RegisterPanel />}
+                {isRegistrationPanelVisible && <RegistrationPanel />}
             </MainShellPanelsVisibilityContext.Provider>
             <div className="top-12 flex h-[calc(100vh-3rem)] w-full">
                 <Sidebar />
