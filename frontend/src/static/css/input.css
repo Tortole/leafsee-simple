@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Play";
+    src: url("../fonts/Play/Play-Regular.ttf") format(truetype);
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    font-variant: normal;
+}
+
+@font-face {
+    font-family: "Play";
+    src: url("../fonts/Play/Play-Bold.ttf") format(truetype);
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    font-variant: normal;
+}
+
+@font-face {
+    font-family: "JockeyOne";
+    src: url("../fonts/JockeyOne/JockeyOne-Regular.ttf") format(truetype);
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    font-variant: normal;
+}
+
+.clip-polygon-right-top {
+    clip-path: polygon(
+        20px 0%,
+        calc(100% - 20px) 0%,
+        100% 20px,
+        100% 100%,
+        0% 100%,
+        0% 20px
+    );
+}
+
+.clip-polygon-octagon {
+    clip-path: polygon(
+        30% 0%,
+        70% 0%,
+        100% 30%,
+        100% 70%,
+        70% 100%,
+        30% 100%,
+        0% 70%,
+        0% 30%
+    );
+}

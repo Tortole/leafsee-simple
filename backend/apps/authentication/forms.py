@@ -48,7 +48,7 @@ class LoginForm(forms.ModelForm):
             # Raise validation error if neither username nor email has been passed
             raise ValidationError(
                 {"username": _("Even one of username or e-mail should have a value.")},
-                code="required",
+                code="loginname_required",
             )
         elif (username or email) and password:
             self.user_cache = authenticate(
@@ -57,7 +57,7 @@ class LoginForm(forms.ModelForm):
             if self.user_cache is None:
                 raise ValidationError(
                     _("Not valid username, e-mail or password."),
-                    code="invalid_login",
+                    code="invalid_data",
                 )
             elif not self.user_cache.is_active:
                 raise ValidationError(
