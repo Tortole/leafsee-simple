@@ -139,11 +139,6 @@ function RegistrationForm() {
             }
             // Write error message
             errorsList.forEach((error) => {
-                // !!!
-                console.log(
-                    '>>>>>>>>>>>>>>>>>>>>>>>>>>>> error["code"] - ',
-                    error["code"],
-                );
                 // error["code"]
                 setErrorMessages((e) => [...e, error["message"]]);
             });
