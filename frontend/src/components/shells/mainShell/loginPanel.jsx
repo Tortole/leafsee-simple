@@ -3,7 +3,7 @@ Login panel components for user login
 */
 
 import axios from "axios";
-import { useActionState, useContext, useEffect, useState } from "react";
+import { useActionState, useContext, useState } from "react";
 
 import {
     MainShellPanelsVisibilityContext,
@@ -15,7 +15,7 @@ function LoginInput({
     inputName,
     inputType,
     labelText,
-    labelColor,
+    errorFields,
     isKeepValueAfterSubmit = false,
 }) {
     /*
@@ -27,6 +27,16 @@ function LoginInput({
     function keepValue(event) {
         setInputValue(event.target.value);
     }
+
+    /*
+    If the errorFields has "__all__" value or inputName,
+    then color the label with the error color,
+    otherwise color it with the default color
+    */
+    const labelColor =
+        errorFields.has("__all__") || errorFields.has(inputName)
+            ? inputErrorColorClass
+            : inputDefaultColorClass;
 
     return (
         <div className={`clip-polygon-steep-2 size-max p-[2px] ${labelColor}`}>
@@ -62,27 +72,23 @@ function LoginForm() {
         - processes errors returned from the server
     */
 
-    const [errorMessages, setErrorMessages] = useState([]);
-
-    const [loginnameColor, setLoginnameColor] = useState(
-        inputDefaultColorClass,
-    );
-    const [passwordColor, setPasswordColor] = useState(inputDefaultColorClass);
-
     // POST request to login
     async function login(prevState, formData) {
         /*
-        Sends a POST request to the server for user login and returns errors
+        Sends a POST request to the server for user login and handles the returned errors, if any
 
         Params:
             prevState - previous state of the value returned by the function
             formData - form data when the user submits the form
 
         Returns:
-            errors - errors returned by the server after receiving the form data
+            errorsParsed - parsed form errors returned by the server after receiving the form data
+                - messages - all error messages
+                - fields - input fields containing errors
         */
 
-        const errors = await axios
+        // Errors returned in response to the request
+        const errorsReturned = await axios
             .post(
                 "/auth/login",
                 {
@@ -97,53 +103,49 @@ function LoginForm() {
                 },
             )
             .then(() => {
+                // Refresh the page on successful registration
                 window.location.reload();
-                return {};
             })
             .catch((error) => error.response.data.errors);
-        return errors;
-    }
 
-    // Get errors, if any
-    const [errors, loginAction] = useActionState(login, {});
+        // Errors in the parsed form
+        const errorsParsed = { messages: [], fields: new Set() };
 
-    // Display errors, if any
-    useEffect(() => {
-        // Clear the error text box and remove the error color from the input fields
-        setErrorMessages([]);
-        setLoginnameColor(inputDefaultColorClass);
-        setPasswordColor(inputDefaultColorClass);
+        // Loop through the names of form input fields containing errors and the list of their errors
+        for (const [field, errorsList] of Object.entries(errorsReturned)) {
+            /*
+            Input fields that should have been highlighted with an error
+            The variable field can contain:
+                - __all__ - error in all input fields
+                - <input field name> - error in an input field with the same name
+            */
+            errorsParsed.fields.add(field);
 
-        for (const [field, errorsList] of Object.entries(errors)) {
-            // Color field with error
-            switch (field) {
-                case "__all__":
-                    setLoginnameColor(inputErrorColorClass);
-                    setPasswordColor(inputErrorColorClass);
-                    break;
-                case "email":
-                case "username":
-                    setLoginnameColor(inputErrorColorClass);
-                    break;
-                case "password":
-                    setPasswordColor(inputErrorColorClass);
-                    break;
-                default:
-                    break;
-            }
-            // Write error message
+            // Error list processing
             errorsList.forEach((error) => {
-                // error["code"]
-                setErrorMessages((e) => [...e, error.message]);
+                /*
+                Each errorsList item contains:
+                    - code - error code
+                    - message - error message
+                */
+                errorsParsed.messages.push(error.message);
             });
         }
-    }, [errors]);
 
-    // Form
+        return errorsParsed;
+    }
+
+    // Login action runs the login function when the user submits the form and passes errors to the errors variable
+    const [errors, loginAction] = useActionState(login, {
+        messages: [],
+        fields: new Set(),
+    });
+
+    // Form component
     return (
         <form className="flex flex-col items-center gap-5" action={loginAction}>
             <div className="font-play text-red-l w-[500px] text-left">
-                {errorMessages.map((message) => (
+                {errors.messages.map((message) => (
                     <p>{message}</p>
                 ))}
             </div>
@@ -152,14 +154,14 @@ function LoginForm() {
                 inputName="loginname"
                 inputType="text"
                 labelText="Логин или E-mail"
-                labelColor={loginnameColor}
+                errorFields={errors.fields}
                 isKeepValueAfterSubmit={true}
             />
             <LoginInput
                 inputName="password"
                 inputType="password"
                 labelText="Пароль"
-                labelColor={passwordColor}
+                errorFields={errors.fields}
                 isKeepValueAfterSubmit={false}
             />
 

@@ -3,7 +3,7 @@ Registration panel components for user registration
 */
 
 import axios from "axios";
-import { useActionState, useContext, useEffect, useState } from "react";
+import { useActionState, useContext, useState } from "react";
 
 import {
     MainShellPanelsVisibilityContext,
@@ -15,7 +15,7 @@ function RegistrationInput({
     inputName,
     inputType,
     labelText,
-    labelColor,
+    errorFields,
     isKeepValueAfterSubmit = false,
     isRequired = false,
 }) {
@@ -28,6 +28,16 @@ function RegistrationInput({
     function keepValue(event) {
         setInputValue(event.target.value);
     }
+
+    /*
+    If the errorFields has "__all__" value or inputName,
+    then color the label with the error color,
+    otherwise color it with the default color
+    */
+    const labelColor =
+        errorFields.has("__all__") || errorFields.has(inputName)
+            ? inputErrorColorClass
+            : inputDefaultColorClass;
 
     return (
         <div className={`clip-polygon-steep-2 size-max p-[2px] ${labelColor}`}>
@@ -63,31 +73,22 @@ function RegistrationForm() {
         - processes errors returned from the server
     */
 
-    const [errorMessages, setErrorMessages] = useState([]);
-
-    const [usernameColor, setUsernameColor] = useState(inputDefaultColorClass);
-    const [passwordColor, setPasswordColor] = useState(inputDefaultColorClass);
-    const [emailColor, setEmailColor] = useState(inputDefaultColorClass);
-    const [nicknameColor, setNicknameColor] = useState(inputDefaultColorClass);
-    const [firstNameColor, setFirstNameColor] = useState(
-        inputDefaultColorClass,
-    );
-    const [lastNameColor, setLastNameColor] = useState(inputDefaultColorClass);
-
     // POST request to registration
     async function registration(prevState, formData) {
         /*
-        Sends a POST request to the server for user registration and returns errors
+        Sends a POST request to the server for user registration and handles the returned errors, if any
 
         Params:
             prevState - previous state of the value returned by the function
             formData - form data when the user submits the form
 
         Returns:
-            errors - errors returned by the server after receiving the form data
+            errorsParsed - parsed form errors returned by the server after receiving the form data
+                - messages - all error messages
+                - fields - input fields containing errors
         */
 
-        const errors = await axios
+        const errorsReturned = await axios
             .post(
                 "/auth/registration",
                 {
@@ -107,68 +108,49 @@ function RegistrationForm() {
                 },
             )
             .then(() => {
+                // Refresh the page on successful registration
                 window.location.reload();
-                return {};
             })
             .catch((error) => error.response.data.errors);
-        return errors;
-    }
 
-    // Get errors, if any
-    const [errors, registrationAction] = useActionState(registration, {});
+        // Errors in the parsed form
+        const errorsParsed = { messages: [], fields: new Set() };
 
-    // Display errors, if any
-    useEffect(() => {
-        // Clear the error text box and remove the error color from the input fields
-        setErrorMessages([]);
+        // Loop through the names of form input fields containing errors and the list of their errors
+        for (const [field, errorsList] of Object.entries(errorsReturned)) {
+            /*
+                Input fields that should have been highlighted with an error
+                The variable field can contain:
+                    - __all__ - error in all input fields
+                    - <input field name> - error in an input field with the same name
+            */
+            errorsParsed.fields.add(field);
 
-        setUsernameColor(inputDefaultColorClass);
-        setPasswordColor(inputDefaultColorClass);
-        setEmailColor(inputDefaultColorClass);
-        setNicknameColor(inputDefaultColorClass);
-        setFirstNameColor(inputDefaultColorClass);
-        setLastNameColor(inputDefaultColorClass);
-
-        for (const [field, errorsList] of Object.entries(errors)) {
-            // Color field with error
-            switch (field) {
-                case "__all__":
-                    setUsernameColor(inputErrorColorClass);
-                    setPasswordColor(inputErrorColorClass);
-                    setEmailColor(inputErrorColorClass);
-                    setNicknameColor(inputErrorColorClass);
-                    setFirstNameColor(inputErrorColorClass);
-                    setLastNameColor(inputErrorColorClass);
-                    break;
-                case "username":
-                    setUsernameColor(inputErrorColorClass);
-                    break;
-                case "password1":
-                case "password2":
-                    setPasswordColor(inputErrorColorClass);
-                    break;
-                case "email":
-                    setEmailColor(inputErrorColorClass);
-                    break;
-                case "nickname":
-                    setNicknameColor(inputErrorColorClass);
-                    break;
-                case "first_name":
-                    setFirstNameColor(inputErrorColorClass);
-                    break;
-                case "last_name":
-                    setLastNameColor(inputErrorColorClass);
-                    break;
-                default:
-                    break;
+            // Add name of second password input field, if there is one
+            if (field === "password1" || field === "password2") {
+                errorsParsed.fields.add("password1");
+                errorsParsed.fields.add("password2");
             }
-            // Write error message
+
+            // Error list processing
             errorsList.forEach((error) => {
-                // error["code"]
-                setErrorMessages((e) => [...e, error.message]);
+                /*
+                    Each errorsList item contains:
+                        - code - error code
+                        - message - error message
+                */
+                errorsParsed.messages.push(error.message);
             });
         }
-    }, [errors]);
+
+        return errorsParsed;
+    }
+
+    // Registration action runs the registration function when the user submits the form and passes errors to the errors variable
+    const [errors, registrationAction] = useActionState(registration, {
+        messages: [],
+        fields: new Set(),
+    });
 
     // Form component
     return (
@@ -177,7 +159,7 @@ function RegistrationForm() {
             action={registrationAction}
         >
             <div className="font-play text-red-l w-[500px] text-left">
-                {errorMessages.map((message) => (
+                {errors.messages.map((message) => (
                     <p>{message}</p>
                 ))}
             </div>
@@ -192,7 +174,7 @@ function RegistrationForm() {
                         inputName="username"
                         inputType="text"
                         labelText="Имя пользователя"
-                        labelColor={usernameColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={true}
                         isRequired={true}
                     />
@@ -200,7 +182,7 @@ function RegistrationForm() {
                         inputName="password1"
                         inputType="password"
                         labelText="Пароль"
-                        labelColor={passwordColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={false}
                         isRequired={true}
                     />
@@ -208,7 +190,7 @@ function RegistrationForm() {
                         inputName="password2"
                         inputType="password"
                         labelText="Пароль ещё раз"
-                        labelColor={passwordColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={false}
                         isRequired={true}
                     />
@@ -225,7 +207,7 @@ function RegistrationForm() {
                         inputName="email"
                         inputType="email"
                         labelText="Электронная почта"
-                        labelColor={emailColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={true}
                         isRequired={false}
                     />
@@ -233,7 +215,7 @@ function RegistrationForm() {
                         inputName="nickname"
                         inputType="text"
                         labelText="Никнейм"
-                        labelColor={nicknameColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={true}
                         isRequired={false}
                     />
@@ -241,7 +223,7 @@ function RegistrationForm() {
                         inputName="first_name"
                         inputType="text"
                         labelText="Имя"
-                        labelColor={firstNameColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={true}
                         isRequired={false}
                     />
@@ -249,7 +231,7 @@ function RegistrationForm() {
                         inputName="last_name"
                         inputType="text"
                         labelText="Фамилия"
-                        labelColor={lastNameColor}
+                        errorFields={errors.fields}
                         isKeepValueAfterSubmit={true}
                         isRequired={false}
                     />

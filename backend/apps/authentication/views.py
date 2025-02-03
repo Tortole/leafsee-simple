@@ -47,9 +47,14 @@ class LoginView(View):
             auth_login(request, form.get_user())
             return JsonResponse({"message": "success"}, status=200)
         else:
-            return JsonResponse(
-                {"errors": json.loads(form.errors.as_json())}, status=400
-            )
+            # Replace "username" and "email" keys with "loginname"
+            errors = json.loads(form.errors.as_json())
+            errors["loginname"] = [
+                *errors.pop("username", []),
+                *errors.pop("email", []),
+            ]
+
+            return JsonResponse({"errors": errors}, status=400)
 
 
 class AuthenticatedStatusView(View):
