@@ -1,11 +1,15 @@
+/*
+Registration panel components for user registration
+*/
+
 import axios from "axios";
-import { useContext, useState, useEffect, useActionState } from "react";
+import { useActionState, useContext, useEffect, useState } from "react";
 
 import {
+    MainShellPanelsVisibilityContext,
     inputDefaultColorClass,
     inputErrorColorClass,
-    MainShellPanelsVisibilityContext,
-} from "./mainShell.js";
+} from "./mainShell";
 
 function RegistrationInput({
     inputName,
@@ -15,8 +19,12 @@ function RegistrationInput({
     isKeepValueAfterSubmit = false,
     isRequired = false,
 }) {
-    const [inputValue, setInputValue] = useState("");
+    /*
+    Input field of Registration Form that controls the appearance of the field and its value
+    */
 
+    // Keeping Input field values after form submit
+    const [inputValue, setInputValue] = useState("");
     function keepValue(event) {
         setInputValue(event.target.value);
     }
@@ -47,6 +55,14 @@ function RegistrationInput({
 }
 
 function RegistrationForm() {
+    /*
+    Registration Form of Registration Panel that:
+        - draws the component of the registration form
+        - accepts data entered by the user
+        - sends data to the server
+        - processes errors returned from the server
+    */
+
     const [errorMessages, setErrorMessages] = useState([]);
 
     const [usernameColor, setUsernameColor] = useState(inputDefaultColorClass);
@@ -58,9 +74,20 @@ function RegistrationForm() {
     );
     const [lastNameColor, setLastNameColor] = useState(inputDefaultColorClass);
 
-    // Post request to registration
+    // POST request to registration
     async function registration(prevState, formData) {
-        let errors = await axios
+        /*
+        Sends a POST request to the server for user registration and returns errors
+
+        Params:
+            prevState - previous state of the value returned by the function
+            formData - form data when the user submits the form
+
+        Returns:
+            errors - errors returned by the server after receiving the form data
+        */
+
+        const errors = await axios
             .post(
                 "/auth/registration",
                 {
@@ -79,13 +106,11 @@ function RegistrationForm() {
                     },
                 },
             )
-            .then((response) => {
+            .then(() => {
                 window.location.reload();
                 return {};
             })
-            .catch((error) => {
-                return error.response.data["errors"];
-            });
+            .catch((error) => error.response.data.errors);
         return errors;
     }
 
@@ -140,12 +165,12 @@ function RegistrationForm() {
             // Write error message
             errorsList.forEach((error) => {
                 // error["code"]
-                setErrorMessages((e) => [...e, error["message"]]);
+                setErrorMessages((e) => [...e, error.message]);
             });
         }
     }, [errors]);
 
-    // Form
+    // Form component
     return (
         <form
             className="flex flex-col items-center gap-5"
@@ -242,6 +267,13 @@ function RegistrationForm() {
 }
 
 export default function RegistrationPanel() {
+    /*
+    Registration Panel that appears on the top of the page and contains:
+        - button to close Registration Panel
+        - buttons to switch between Login and Register panels
+        - registration form
+    */
+
     const { setIsLoginPanelVisible, setIsRegistrationPanelVisible } =
         useContext(MainShellPanelsVisibilityContext);
 

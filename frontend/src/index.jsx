@@ -1,13 +1,16 @@
+/*
+React components root
+*/
+
 import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import "./static/css/out.css";
+import Main from "pages/Main";
+import { AuthStatusProvider } from "services/authStatus";
 
-import Main from "./pages/Main";
-
-import { AuthStatusProvider } from "./services/authStatus";
+import "static/css/out.css";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";

@@ -1,11 +1,15 @@
-import { useState, createContext } from "react";
+/*
+Main Shell components, which are displayed on most pages of the site
+*/
 
-import Topbar from "./topbar.js";
-import NotificationMenu from "./notificationMenu.js";
-import UserSubmenu from "./userSubmenu.js";
-import Sidebar from "./sidebar.js";
-import LoginPanel from "./loginPanel.js";
-import RegistrationPanel from "./registrationPanel.js";
+import { createContext, useState } from "react";
+
+import LoginPanel from "./loginPanel";
+import NotificationMenu from "./notificationMenu";
+import RegistrationPanel from "./registrationPanel";
+import Sidebar from "./sidebar";
+import Topbar from "./topbar";
+import TopbarUserSubmenu from "./topbarUserSubmenu";
 
 export const inputDefaultColorClass = "bg-green-l";
 export const inputErrorColorClass = "bg-red-l";
@@ -13,6 +17,10 @@ export const inputErrorColorClass = "bg-red-l";
 export const MainShellPanelsVisibilityContext = createContext();
 
 export default function MainShell(props) {
+    /*
+    Main Shell contains topbar and sidebar for authentication and navigating the site
+    */
+
     const [isNotificationsPanelVisible, setIsNotificationsPanelVisible] =
         useState(false);
     const [isTopbarMenuPanelVisible, setIsTopbarMenuPanelVisible] =
@@ -42,7 +50,7 @@ export default function MainShell(props) {
                 </main>
             </div>
             {isNotificationsPanelVisible && <NotificationMenu />}
-            {isTopbarMenuPanelVisible && <UserSubmenu />}
+            {isTopbarMenuPanelVisible && <TopbarUserSubmenu />}
         </div>
     );
 }

@@ -1,11 +1,15 @@
+/*
+Login panel components for user login
+*/
+
 import axios from "axios";
-import { useContext, useState, useEffect, useActionState } from "react";
+import { useActionState, useContext, useEffect, useState } from "react";
 
 import {
+    MainShellPanelsVisibilityContext,
     inputDefaultColorClass,
     inputErrorColorClass,
-    MainShellPanelsVisibilityContext,
-} from "./mainShell.js";
+} from "./mainShell";
 
 function LoginInput({
     inputName,
@@ -14,8 +18,12 @@ function LoginInput({
     labelColor,
     isKeepValueAfterSubmit = false,
 }) {
-    const [inputValue, setInputValue] = useState("");
+    /*
+    Input field of Login Form that controls the appearance of the field and its value
+    */
 
+    // Keeping Input field values after form submit
+    const [inputValue, setInputValue] = useState("");
     function keepValue(event) {
         setInputValue(event.target.value);
     }
@@ -46,6 +54,14 @@ function LoginInput({
 }
 
 function LoginForm() {
+    /*
+    Login Form of Login Panel that:
+        - draws the component of the login form
+        - accepts data entered by the user
+        - sends data to the server
+        - processes errors returned from the server
+    */
+
     const [errorMessages, setErrorMessages] = useState([]);
 
     const [loginnameColor, setLoginnameColor] = useState(
@@ -53,9 +69,20 @@ function LoginForm() {
     );
     const [passwordColor, setPasswordColor] = useState(inputDefaultColorClass);
 
-    // Post request to login
+    // POST request to login
     async function login(prevState, formData) {
-        let errors = await axios
+        /*
+        Sends a POST request to the server for user login and returns errors
+
+        Params:
+            prevState - previous state of the value returned by the function
+            formData - form data when the user submits the form
+
+        Returns:
+            errors - errors returned by the server after receiving the form data
+        */
+
+        const errors = await axios
             .post(
                 "/auth/login",
                 {
@@ -69,13 +96,11 @@ function LoginForm() {
                     },
                 },
             )
-            .then((response) => {
+            .then(() => {
                 window.location.reload();
                 return {};
             })
-            .catch((error) => {
-                return error.response.data["errors"];
-            });
+            .catch((error) => error.response.data.errors);
         return errors;
     }
 
@@ -109,7 +134,7 @@ function LoginForm() {
             // Write error message
             errorsList.forEach((error) => {
                 // error["code"]
-                setErrorMessages((e) => [...e, error["message"]]);
+                setErrorMessages((e) => [...e, error.message]);
             });
         }
     }, [errors]);
@@ -149,6 +174,13 @@ function LoginForm() {
 }
 
 export default function LoginPanel() {
+    /*
+    Login Panel that appears on the top of the page and contains:
+        - button to close Login Panel
+        - buttons to switch between Login and Register panels
+        - login form
+    */
+
     const { setIsLoginPanelVisible, setIsRegistrationPanelVisible } =
         useContext(MainShellPanelsVisibilityContext);
 

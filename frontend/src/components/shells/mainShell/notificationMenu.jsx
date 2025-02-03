@@ -1,4 +1,12 @@
+/*
+Notification Menu components for displaying and interacting with notifications
+*/
+
 function NotificationMenuLine() {
+    /*
+    Line of Notification Menu of Topbar containing a description of one notification
+    */
+
     return (
         <div className="clip-polygon-right-2 hover:bg-green-ll-hover active:bg-green-ll-onclick px-4 py-2">
             <p className="font-play font-bold">Вам ответили на комментарий</p>
@@ -11,7 +19,11 @@ function NotificationMenuLine() {
 }
 
 export default function NotificationMenu() {
-    let isNotifications = false;
+    /*
+    Notification Menu of Topbar containing a list of notification lines with their descriptions
+    */
+
+    const isNotifications = false;
 
     return (
         <div className="bg-green-l clip-polygon-right-2 absolute right-8 top-16 z-20 flex h-[520px] w-[400px] items-center justify-center">

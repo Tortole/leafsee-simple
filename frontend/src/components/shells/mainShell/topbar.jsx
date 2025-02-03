@@ -1,16 +1,25 @@
+/*
+Topbar components
+*/
+
 import { useContext } from "react";
 
-import { AuthStatusContext } from "../../../services/authStatus.js";
-import { MainShellPanelsVisibilityContext } from "./mainShell.js";
+import { MainShellPanelsVisibilityContext } from "./mainShell";
 
-import { ReactComponent as BurgerMenuButton } from "../../../static/svg/burger_menu_button.svg";
-import { ReactComponent as LeafIcon } from "../../../static/svg/leaf_icon.svg";
-import { ReactComponent as Magnifier } from "../../../static/svg/magnifier.svg";
-import { ReactComponent as VideoUpload } from "../../../static/svg/video_upload.svg";
-import { ReactComponent as NotificationBell } from "../../../static/svg/notification_bell.svg";
-import { ReactComponent as UserIcon } from "../../../static/svg/user_icon.svg";
+import { AuthStatusContext } from "services/authStatus";
+
+import { ReactComponent as BurgerMenuButton } from "static/svg/burger_menu_button.svg";
+import { ReactComponent as LeafIcon } from "static/svg/leaf_icon.svg";
+import { ReactComponent as Magnifier } from "static/svg/magnifier.svg";
+import { ReactComponent as NotificationBell } from "static/svg/notification_bell.svg";
+import { ReactComponent as UserIcon } from "static/svg/user_icon.svg";
+import { ReactComponent as VideoUpload } from "static/svg/video_upload.svg";
 
 function TopbarBurgerButton() {
+    /*
+    Burger Button of Topbar to show or hide the Sidebar
+    */
+
     return (
         <button
             className="clip-polygon-octagon hover:bg-green-l-hover active:bg-green-l-onclick float-left flex size-10 items-center justify-center"
@@ -22,6 +31,10 @@ function TopbarBurgerButton() {
 }
 
 function TopbarIcon() {
+    /*
+    Icon of Topbar with site site logo
+    */
+
     return (
         <button className="bg-green-l clip-polygon-steep-2 float-left ml-5 flex h-9 w-max items-center px-4">
             <LeafIcon className="float-left w-7" />
@@ -33,6 +46,10 @@ function TopbarIcon() {
 }
 
 function TopbarSearch() {
+    /*
+    Search bar of Topbar
+    */
+
     return (
         <div className="clip-polygon-steep-2 h-7 w-max">
             <button className="bg-green-l hover:bg-green-l-hover active:bg-green-l-onclick float-left h-full pl-5 pr-3 text-center">
@@ -49,6 +66,13 @@ function TopbarSearch() {
 }
 
 function TopbarAuthenticated() {
+    /*
+    Block of Topbar containing link buttons for an authenticated user:
+        - notification menu button
+        - new video upload button
+        - user's account submenu button
+    */
+
     const { setIsNotificationsPanelVisible, setIsTopbarMenuPanelVisible } =
         useContext(MainShellPanelsVisibilityContext);
 
@@ -71,6 +95,12 @@ function TopbarAuthenticated() {
 }
 
 function TopbarNotAuthenticated() {
+    /*
+    Block of Topbar containing link buttons for an unauthenticated user:
+        - button for login
+        - button for registration
+    */
+
     const { setIsLoginPanelVisible, setIsRegistrationPanelVisible } =
         useContext(MainShellPanelsVisibilityContext);
 
@@ -93,6 +123,14 @@ function TopbarNotAuthenticated() {
 }
 
 export default function Topbar() {
+    /*
+    Topbar of Main Shell containing search bar and buttons for navigating through pages related to the user's account:
+        - notification icon and menu
+        - user's account menu
+        - buttons for login or register
+        - link to the new video upload page
+    */
+
     const { isUserAuthenticated } = useContext(AuthStatusContext);
 
     return (

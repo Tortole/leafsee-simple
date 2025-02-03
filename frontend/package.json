@@ -15,6 +15,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "eslint-config-prettier": "^10.0.1",
         "tailwindcss": "^3.4.16"
     },
     "scripts": {
@@ -22,13 +23,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "t": "tailwindcss -i src/static/css/input.css -o src/static/css/out.css"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
+        "t": "tailwindcss -i src/static/css/input.css -o src/static/css/out.css",
+        "eslint-fix": "eslint --fix"
     },
     "browserslist": {
         "production": [

@@ -85,8 +85,8 @@ module.exports = {
 
 function stringDivider(stringNumerator, numericalDenominator) {
     // Divide number with measurement unit symbols
-    let numeratorNumber = stringNumerator.match(/-?\d+\.?\d*/)[0];
-    let numeratorUnit = stringNumerator.match(/[a-z%]*$/)[0];
+    const numeratorNumber = stringNumerator.match(/-?\d+\.?\d*/)[0];
+    const numeratorUnit = stringNumerator.match(/[a-z%]*$/)[0];
 
     return numeratorNumber / numericalDenominator + numeratorUnit;
 }
