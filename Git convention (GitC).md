@@ -14,32 +14,32 @@ By default branches name can contain only latin letters in low case, numbers, sp
    - may branch off from: main
    - may merge into: -
 
-3. feature/<arbitrary_name> - branch used to develop new features for the upcoming or a distant future release
+3. feature/<arbitrary-name> - branch used to develop new features for the upcoming or a distant future release
 
    - may branch off from: dev
    - may merge into: dev
    - naming convention: anything except master, main, develop, dev, release-\*, or hotfix-\*
    - way to merge: `git merge --no-ff`
 
-4. feature/<arbitrary_name>__<owner_nickname>\_wip - branch for saving temporary commits that are not ready to be added to the functional branch
+4. feature/<arbitrary-name>--<owner-nickname>-wip - branch for saving temporary commits that are not ready to be added to the functional branch
 
-   - may branch off from: feature/<arbitrary_name> (<arbitrary_name> must be the same)
-   - may merge into: feature/<arbitrary_name> (<arbitrary_name> must be the same)
+   - may branch off from: feature/<arbitrary-name> (<arbitrary-name> must be the same)
+   - may merge into: feature/<arbitrary-name> (<arbitrary-name> must be the same)
    - naming convention: anything except master, main, develop, dev, release-\*, or hotfix-\*
    - way to merge: `git merge --squash`
 
-5. release-<app_version> - branch that support preparation of a new production release
+5. release-<app-version> - branch that support preparation of a new production release
 
    - may branch off from: dev
    - may merge into: dev, main
-   - naming convention: release-<app_version>
+   - naming convention: release-<app-version>
    - way to merge: `git merge --no-ff`
 
-6. hotfix-<app_version> - branch to act immediately upon an undesired state of a live production version
+6. hotfix-<app-version> - branch to act immediately upon an undesired state of a live production version
 
    - may branch off from: main
    - may merge into: main, dev, release-\*
-   - naming convention: release-<app_version>
+   - naming convention: release-<app-version>
    - way to merge: `git merge --no-ff`
 
 # Commits convention
