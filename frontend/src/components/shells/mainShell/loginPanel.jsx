@@ -89,19 +89,12 @@ function LoginForm() {
 
         // Errors returned in response to the request
         const errorsReturned = await axios
-            .post(
-                "/auth/login",
-                {
-                    loginname: formData.get("loginname"),
-                    password: formData.get("password"),
+            .post("/auth/login", Object.fromEntries(formData), {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Accept: "application/json",
                 },
-                {
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        Accept: "application/json",
-                    },
-                },
-            )
+            })
             .then(() => {
                 // Refresh the page on successful registration
                 window.location.reload();

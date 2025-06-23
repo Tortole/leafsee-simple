@@ -89,24 +89,12 @@ function RegistrationForm() {
         */
 
         const errorsReturned = await axios
-            .post(
-                "/auth/registration",
-                {
-                    username: formData.get("username"),
-                    password1: formData.get("password1"),
-                    password2: formData.get("password2"),
-                    email: formData.get("email"),
-                    nickname: formData.get("nickname"),
-                    first_name: formData.get("first_name"),
-                    last_name: formData.get("last_name"),
+            .post("/auth/registration", Object.fromEntries(formData), {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Accept: "application/json",
                 },
-                {
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        Accept: "application/json",
-                    },
-                },
-            )
+            })
             .then(() => {
                 // Refresh the page on successful registration
                 window.location.reload();

@@ -106,11 +106,13 @@
                         - minimatch cheat sheet - https://github.com/motemen/minimatch-cheat-sheet
                         - minimatch testing field - https://pthrasher.github.io/minimatch-test/
                     */
+                    // Import from src directory without file extension at the end
                     {
                         "pattern": "*/**/!(*.*)",
                         "group": "parent",
                         "position": "before"
                     },
+                    // Import from src directory with file extension at the end
                     {
                         "pattern": "*/**/*.*",
                         "group": "parent",

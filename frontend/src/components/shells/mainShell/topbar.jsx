@@ -134,10 +134,7 @@ export default function Topbar() {
     const { isUserAuthenticated } = useContext(AuthStatusContext);
 
     return (
-        <div
-            id="base-topbar"
-            className="bg-green-n z-10 flex h-12 w-full items-center justify-between px-5"
-        >
+        <div className="bg-green-n z-10 flex h-12 w-full items-center justify-between px-5">
             <div>
                 <div className="flex items-center">
                     <TopbarBurgerButton />

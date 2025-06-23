@@ -11,7 +11,7 @@ services:
             # General static files
             - ../../static_general:/app/staticgen:ro
         ports:
-            - 5438:80
+            - 5435:80
         extra_hosts:
             - "host.docker.internal:host-gateway"
         deploy:
@@ -32,7 +32,7 @@ services:
         volumes:
             - leafsee-simple-postgres-data:/var/lib/postgresql/data
         ports:
-            - "5435:5432"
+            - "5436:5432"
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U root -d pass"]
             interval: 10s
@@ -59,7 +59,7 @@ services:
         volumes:
             - leafsee-simple-pgadmin-data:/var/lib/pgadmin
         ports:
-            - "5440:80"
+            - "5437:80"
         deploy:
             resources:
                 limits:

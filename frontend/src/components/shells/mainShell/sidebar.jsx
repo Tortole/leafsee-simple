@@ -65,10 +65,7 @@ export default function Sidebar() {
     const { isUserAuthenticated } = useContext(AuthStatusContext);
 
     return (
-        <div
-            id="base-sidebar"
-            className="bg-green-l z-10 flex w-64 flex-col items-start gap-5 overflow-auto py-5"
-        >
+        <div className="bg-green-l z-10 flex w-64 flex-col items-start gap-5 overflow-auto py-5">
             <SidebarMenu />
             {isUserAuthenticated == null ? (
                 <div></div>
