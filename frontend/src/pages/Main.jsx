@@ -3,6 +3,7 @@ Main page components that should be loaded by default unless another page is req
 */
 
 import MainShell from "components/shells/mainShell/mainShell";
+import MainPageGrid from "components/videoGrids/mainPageVideoGrid";
 
 function Main() {
     /*
@@ -12,7 +13,7 @@ function Main() {
     return (
         <div>
             <MainShell>
-                <h1 className="w-24">This is Home page</h1>
+                <MainPageGrid></MainPageGrid>
             </MainShell>
         </div>
     );

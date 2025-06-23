@@ -28,6 +28,7 @@ export default function MainShell(props) {
     const [isLoginPanelVisible, setIsLoginPanelVisible] = useState(false);
     const [isRegistrationPanelVisible, setIsRegistrationPanelVisible] =
         useState(false);
+    const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
     return (
         <div>
@@ -37,6 +38,7 @@ export default function MainShell(props) {
                     setIsTopbarMenuPanelVisible,
                     setIsLoginPanelVisible,
                     setIsRegistrationPanelVisible,
+                    setIsSidebarVisible,
                 }}
             >
                 <Topbar />
@@ -44,7 +46,7 @@ export default function MainShell(props) {
                 {isRegistrationPanelVisible && <RegistrationPanel />}
             </MainShellPanelsVisibilityContext.Provider>
             <div className="top-12 flex h-[calc(100vh-3rem)] w-full">
-                <Sidebar />
+                {isSidebarVisible && <Sidebar />}
                 <main className="bg-gray-n z-0 h-full flex-grow overflow-auto p-4">
                     {props.children}
                 </main>

@@ -20,10 +20,14 @@ function TopbarBurgerButton() {
     Burger Button of Topbar to show or hide the Sidebar
     */
 
+    const { setIsSidebarVisible } = useContext(
+        MainShellPanelsVisibilityContext,
+    );
+
     return (
         <button
             className="clip-polygon-octagon hover:bg-green-l-hover active:bg-green-l-onclick float-left flex size-10 items-center justify-center"
-            onClick="toggleElement('base-sidebar')"
+            onClick={() => setIsSidebarVisible((i) => !i)}
         >
             <BurgerMenuButton className="w-8" />
         </button>

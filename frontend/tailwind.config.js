@@ -76,6 +76,9 @@ module.exports = {
                     "grid-repeat-auto-fit": (value) => ({
                         "grid-template-columns": `repeat(auto-fit, minmax(${value}, 1fr))`,
                     }),
+                    "grid-repeat-auto-fill": (value) => ({
+                        "grid-template-columns": `repeat(auto-fill, minmax(${value}, 1fr))`,
+                    }),
                 },
                 { values: theme("gridRepeatAuto") },
             );
