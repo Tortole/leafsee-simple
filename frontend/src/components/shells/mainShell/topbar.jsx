@@ -8,12 +8,12 @@ import { MainShellPanelsVisibilityContext } from "./mainShell";
 
 import { AuthStatusContext } from "services/authStatus";
 
-import { ReactComponent as BurgerMenuButton } from "static/svg/burger_menu_button.svg";
-import { ReactComponent as LeafIcon } from "static/svg/leaf_icon.svg";
-import { ReactComponent as Magnifier } from "static/svg/magnifier.svg";
-import { ReactComponent as NotificationBell } from "static/svg/notification_bell.svg";
-import { ReactComponent as UserIcon } from "static/svg/user_icon.svg";
-import { ReactComponent as VideoUpload } from "static/svg/video_upload.svg";
+import BurgerMenuButton from "static/svg/burger_menu_button.svg";
+import LeafIcon from "static/svg/leaf_icon.svg";
+import Magnifier from "static/svg/magnifier.svg";
+import NotificationBell from "static/svg/notification_bell.svg";
+import UserIcon from "static/svg/user_icon.svg";
+import VideoUpload from "static/svg/video_upload.svg";
 
 function TopbarBurgerButton() {
     /*
@@ -29,7 +29,7 @@ function TopbarBurgerButton() {
             className="clip-polygon-octagon hover:bg-green-l-hover active:bg-green-l-onclick float-left flex size-10 items-center justify-center"
             onClick={() => setIsSidebarVisible((i) => !i)}
         >
-            <BurgerMenuButton className="w-8" />
+            <img src={BurgerMenuButton} className="w-8" />
         </button>
     );
 }
@@ -41,7 +41,8 @@ function TopbarIcon() {
 
     return (
         <button className="bg-green-l clip-polygon-steep-2 float-left ml-5 flex h-9 w-max items-center px-4">
-            <LeafIcon className="float-left w-7" />
+            {/* <LeafIcon className="float-left w-7" /> */}
+            <img src={LeafIcon} className="float-left w-7" />
             <p className="font-jockeyone float-left ml-2 text-center text-3xl">
                 LeafSee
             </p>
@@ -57,7 +58,7 @@ function TopbarSearch() {
     return (
         <div className="clip-polygon-steep-2 h-7 w-max">
             <button className="bg-green-l hover:bg-green-l-hover active:bg-green-l-onclick float-left h-full pl-5 pr-3 text-center">
-                <Magnifier className="w-5" />
+                <img src={Magnifier} className="w-5" />
             </button>
             <input
                 type="text"
@@ -83,16 +84,16 @@ function TopbarAuthenticated() {
     return (
         <div className="flex h-full w-max items-center justify-between gap-4">
             <a href="{% url 'video-list' %}">
-                <VideoUpload className="w-8" />
+                <img src={VideoUpload} className="w-8" />
             </a>
             <button onClick={() => setIsNotificationsPanelVisible((i) => !i)}>
-                <NotificationBell className="w-6" />
+                <img src={NotificationBell} className="w-6" />
             </button>
             <button
                 className="clip-polygon-octagon flex size-8 items-center justify-center bg-white"
                 onClick={() => setIsTopbarMenuPanelVisible((i) => !i)}
             >
-                <UserIcon className="w-7" />
+                <img src={UserIcon} className="w-7" />
             </button>
         </div>
     );

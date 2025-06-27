@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 import { AuthStatusContext } from "services/authStatus";
 
-import { ReactComponent as UserIcon } from "static/svg/user_icon.svg";
+import UserIcon from "static/svg/user_icon.svg";
 
 function SidebarMenuButton({ text }) {
     /*
@@ -44,7 +44,7 @@ function SidebarSubscription() {
         <div>
             <button className="bg-green-l clip-polygon-steep-2 hover:bg-green-l-hover active:bg-green-l-onclick flex w-full items-center justify-start gap-2 px-3 py-1">
                 <div className="clip-polygon-octagon flex size-8 items-center justify-center bg-white">
-                    <UserIcon className="w-7" />
+                    <img src={UserIcon} className="w-7" />
                 </div>
                 <p className="font-play text-xl">Название канала</p>
             </button>
