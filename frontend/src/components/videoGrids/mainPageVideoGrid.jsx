@@ -9,7 +9,7 @@ function roundViewsCount(viewsCount) {
     /*
     Convert a views count in string type to an abbreviated form with a letter postfix
 
-    Parameters:
+    Params:
         viewsCount - string - views count in string type
 
     Return:
@@ -24,33 +24,21 @@ function roundViewsCount(viewsCount) {
             return viewsCountStr;
 
         case 4: // ones of thousands
-            return (
-                viewsCountStr[0] +
-                (viewsCountStr[1] ? "." + viewsCountStr[1] : "") +
-                "K"
-            );
+            return viewsCountStr[0] + (viewsCountStr[1] ? "." + viewsCountStr[1] : "") + "K";
         case 5: // tens of thousands
             return viewsCountStr.substring(0, 2) + "K";
         case 6: // hundreds of thousands
             return viewsCountStr.substring(0, 3) + "K";
 
         case 7: // ones of millions
-            return (
-                viewsCountStr[0] +
-                (viewsCountStr[1] ? "." + viewsCountStr[1] : "") +
-                "M"
-            );
+            return viewsCountStr[0] + (viewsCountStr[1] ? "." + viewsCountStr[1] : "") + "M";
         case 8: // tens of millions
             return viewsCountStr.substring(0, 2) + "M";
         case 9: // hundreds of millions
             return viewsCountStr.substring(0, 3) + "M";
 
         case 10: // ones of billions
-            return (
-                viewsCountStr[0] +
-                (viewsCountStr[1] ? "." + viewsCountStr[1] : "") +
-                "B"
-            );
+            return viewsCountStr[0] + (viewsCountStr[1] ? "." + viewsCountStr[1] : "") + "B";
         case 11: // tens of billions
             return viewsCountStr.substring(0, 2) + "B";
         case 12: // hundreds of billions
@@ -65,15 +53,17 @@ function VideoTile({ video }) {
     /*
     Create tile with video preview, information and links to author channel and video player
 
-    Parameters:
+    Params:
         video - Video model - Video model instance with information about single video
+
+    Return:
+        VideoTile - video preview tile component
     */
 
     return (
-        <div
-            href="!!! href-to-video"
+        <a
+            href={`/video/${video.id}`}
             className="flex h-min cursor-pointer flex-col justify-start gap-1"
-            // onclick="redirectWithHref(event)"
         >
             <img
                 src={video.preview_image}
@@ -82,7 +72,7 @@ function VideoTile({ video }) {
             />
             <div className="flex w-full flex-col gap-1 px-3">
                 <div className="flex w-full flex-row flex-wrap justify-start gap-3">
-                    <img
+                    <a
                         href="!!! href-to-author-chanell"
                         src={video.author_avatar}
                         className="clip-polygon-octagon bg-gray-d size-12"
@@ -120,7 +110,7 @@ function VideoTile({ video }) {
                     </snap>
                 </div>
             </div>
-        </div>
+        </a>
     );
 }
 
@@ -128,8 +118,11 @@ function TemporaryTile({ ref }) {
     /*
     Temporary tile that replaces the tile from the video while the video is being loaded
 
-    Parameters:
+    Params:
         ref - useRef - useRef reference for the trigger function for loading new videos
+
+    Return:
+        TemporaryTile - video temporary tile component
     */
 
     return (
@@ -150,26 +143,30 @@ function getGridItemsPerRow(gridRef) {
     /*
     Calculates the number of columns in an element with the CSS property "grid-template-columns: repeat(...)"
 
-    Parameters:
+    Params:
         gridRef - useRef - useRef reference to element with the CSS property "grid-template-columns: repeat(...)"
+
     Return:
         columnsCount - number - count of columns in referenced element
     */
 
-    const gridColumnsWidths = window.getComputedStyle(
-        gridRef.current,
-    ).gridTemplateColumns;
+    const gridColumnsWidths = window.getComputedStyle(gridRef.current).gridTemplateColumns;
 
     if (!gridColumnsWidths) return 0;
 
-    // !!!
     const columns = gridColumnsWidths.split(" ").filter(Boolean);
     return columns.length;
 }
 
 export default function MainPageGrid() {
     /*
-    !!!
+    Video grid component for main page
+
+    Params:
+        none
+
+    Return:
+        MainPageGrid - video grid component
     */
 
     /*
@@ -204,8 +201,7 @@ export default function MainPageGrid() {
         }
         isRequestSend.current = true;
 
-        const videoToLoadCount =
-            videosPerRowCount.current * visibleRowInVideoGridCount;
+        const videoToLoadCount = videosPerRowCount.current * visibleRowInVideoGridCount;
         axios
             .get(
                 "/api/video",
@@ -227,9 +223,7 @@ export default function MainPageGrid() {
                     isThereVideoToLoad.current = false;
                 }
 
-                setTemporaryTilesCount(
-                    videosPerRowCount.current * temporaryRowsCount,
-                );
+                setTemporaryTilesCount(videosPerRowCount.current * temporaryRowsCount);
                 isRequestSend.current = false;
             })
             // !!! add error handling
@@ -258,9 +252,7 @@ export default function MainPageGrid() {
     */
     useEffect(() => {
         videosPerRowCount.current = getGridItemsPerRow(videoGridRef);
-        setTemporaryTilesCount(
-            videosPerRowCount.current * visibleRowInVideoGridCount,
-        );
+        setTemporaryTilesCount(videosPerRowCount.current * visibleRowInVideoGridCount);
         loadVideo();
         observerLoadVideo.observe(firstTemporaryTile.current);
     }, []);
@@ -282,9 +274,7 @@ export default function MainPageGrid() {
             // If there is no incomplete line with video tiles,
             if (videosTailCount === 0) {
                 // then add time tiles for exactly temporaryRowsCount lines,
-                setTemporaryTilesCount(
-                    videosPerRowCountNew * temporaryRowsCount,
-                );
+                setTemporaryTilesCount(videosPerRowCountNew * temporaryRowsCount);
             } else {
                 // else add additional tiles to align the incomplete line
                 setTemporaryTilesCount(
@@ -306,10 +296,7 @@ export default function MainPageGrid() {
     }, [videos]);
 
     return (
-        <div
-            ref={videoGridRef}
-            className="grid-repeat-auto-fill-[400px] grid h-fit w-full gap-6"
-        >
+        <div ref={videoGridRef} className="grid-repeat-auto-fill-[400px] grid h-fit w-full gap-6">
             {videos.map((video) => (
                 <VideoTile video={video} />
             ))}

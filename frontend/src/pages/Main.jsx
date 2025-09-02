@@ -11,11 +11,9 @@ function Main() {
     */
 
     return (
-        <div>
-            <MainShell>
-                <MainPageGrid></MainPageGrid>
-            </MainShell>
-        </div>
+        <MainShell>
+            <MainPageGrid></MainPageGrid>
+        </MainShell>
     );
 }
 
