@@ -488,7 +488,11 @@ function Videoplayer({ video }) {
     const [isSettingsMenuVisible, setIsSettingsMenuVisible] = useState(false);
 
     // >>>> Handle the fullscreen >>>>
-    const [isVideoFullscreen, setIsVideoFullscreen] = useState(false);
+    /*
+    The initial state is null to avoid an error when trying to exit fullscreen mode
+    when first loading a page when there is no fullscreen element
+    */
+    const [isVideoFullscreen, setIsVideoFullscreen] = useState(null);
 
     function handleFullscreen(isEnterToFullscreen) {
         if (isEnterToFullscreen) {
@@ -521,7 +525,9 @@ function Videoplayer({ video }) {
     }
 
     useEffect(() => {
-        handleFullscreen(isVideoFullscreen);
+        if (isVideoFullscreen !== null) {
+            handleFullscreen(isVideoFullscreen);
+        }
     }, [isVideoFullscreen]);
 
     return (
