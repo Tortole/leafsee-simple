@@ -119,7 +119,7 @@ class Video(models.Model):
     Fields:
         file - FileField - path to video file in media directory
         duration - DurationField - video duration
-        name - CharField - public video name
+        title - CharField - public video title
         description - TextField - public video description
         author - ForeignKey(LeafseeUser, related_name="videos") - user who uploaded video
         upload_date - DateTimeField - video upload date
@@ -137,7 +137,7 @@ class Video(models.Model):
 
     file = models.FileField(blank=False, upload_to=generate_video_path)
     duration = models.DurationField(blank=True)
-    name = models.CharField(max_length=250, blank=False)
+    title = models.CharField(max_length=250, blank=False)
     description = models.TextField(max_length=5000, blank=True)
     author = models.ForeignKey(
         LeafseeUser,

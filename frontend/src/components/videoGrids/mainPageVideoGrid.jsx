@@ -68,7 +68,7 @@ function VideoTile({ video }) {
             <img
                 src={video.preview_image}
                 className="clip-polygon-right-[15px] bg-gray-d aspect-video w-full"
-                alt={`Video preview of "${video.name}"`}
+                alt={`Video preview of "${video.title}"`}
             />
             <div className="flex w-full flex-col gap-1 px-3">
                 <div className="flex w-full flex-row flex-wrap justify-start gap-3">
@@ -79,7 +79,7 @@ function VideoTile({ video }) {
                         alt={`Avatar of ${video.author_username}`}
                     />
                     <div className="font-play line-clamp-2 w-[calc(100%-48px-12px)] text-lg leading-tight">
-                        <span>{video.name}</span>
+                        <span>{video.title}</span>
                     </div>
                 </div>
                 <div className="flex w-full flex-col hover:*:opacity-100">

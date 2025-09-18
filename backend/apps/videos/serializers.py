@@ -25,7 +25,7 @@ class VideoSerializer(serializers.ModelSerializer):
             id - int - video id
             file - FileField - path to video file in media directory
             duration - DurationField - video duration
-            name - CharField - public video name
+            title - CharField - public video title
             description - TextField - public video description
             author - ForeignKey(LeafseeUser) - user who uploaded video
             upload_date - DateField - video upload date
@@ -34,7 +34,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
             Writable:
                 - file
-                - name
+                - title
                 - description
                 - preview_image
 
@@ -70,7 +70,7 @@ class VideoSerializer(serializers.ModelSerializer):
             "id",
             "file",
             "duration",
-            "name",
+            "title",
             "description",
             "author",
             "upload_date",
