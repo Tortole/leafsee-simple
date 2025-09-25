@@ -30,12 +30,13 @@ function VideoTile({ video }) {
             />
             <div className="flex w-full flex-col gap-1 px-3">
                 <div className="flex w-full flex-row flex-wrap justify-start gap-3">
-                    <a
-                        href="!!! href-to-author-chanell"
-                        src={video.author_avatar}
-                        className="clip-polygon-octagon bg-gray-d size-12"
-                        alt={`Avatar of ${video.author_username}`}
-                    />
+                    <a href="!!! href-to-author-chanell">
+                        <img
+                            src={video.author_avatar}
+                            className="clip-polygon-octagon bg-gray-d size-12"
+                            alt={`Avatar of ${video.author_username}`}
+                        />
+                    </a>
                     <div className="font-play line-clamp-2 w-[calc(100%-48px-12px)] text-lg leading-tight">
                         <span>{video.title}</span>
                     </div>
