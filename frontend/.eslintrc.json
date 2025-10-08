@@ -1,0 +1,137 @@
+{
+    "extends": [
+        "react-app",
+        "react-app/jest",
+        "eslint:recommended",
+        "plugin:import/recommended",
+        "prettier"
+    ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx"],
+                "moduleDirectory": ["node_modules", "src/"]
+            }
+        }
+    },
+    "ignorePatterns": ["tailwind.config.js"],
+    "rules": {
+        "dot-notation": ["error"],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "all",
+                "args": "after-used"
+            }
+        ],
+        "no-trailing-spaces": [
+            "error",
+            {
+                "skipBlankLines": false,
+                "ignoreComments": false
+            }
+        ],
+        "arrow-body-style": ["error", "as-needed"],
+        "prefer-const": ["error", { "destructuring": "all" }],
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": [
+                    {
+                        "group": ["../*"],
+                        "message": "Instead of the parent directory characters \"../\", the file path relative to the src directory should be used."
+                    }
+                ]
+            }
+        ],
+        "react/jsx-curly-brace-presence": [
+            "error",
+            {
+                "props": "never",
+                "children": "never",
+                "propElementValues": "always"
+            }
+        ],
+        "react/jsx-filename-extension": [
+            "error",
+            {
+                "allow": "as-needed"
+            }
+        ],
+        "react/jsx-boolean-value": [
+            "error",
+            "always",
+            { "never": ["required"] }
+        ],
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "never",
+                "jsx": "never"
+            }
+        ],
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    // builtin is core Node.js modules import
+                    "builtin",
+                    /* 
+                    external is import:
+                        - from outside the project root
+                        - from node_modules
+                        - scoped package
+                        - start with letter
+                    */
+                    "external",
+                    // internal is import from inside the project root
+                    "internal",
+                    // sibling is import from same directory or subdirectory
+                    "sibling",
+                    // sibling is import from parent directory or its subdirectory
+                    "parent",
+                    // index is import that is one of [".", "./", "./index", "./index.js"]
+                    "index",
+                    // object is import that is part of an arcane TypeScript declaration
+                    "object",
+                    // type is import that is type-only
+                    "type"
+                ],
+                "pathGroups": [
+                    /*
+                    Web-sites to help with minimatch:
+                        - minimatch cheat sheet - https://github.com/motemen/minimatch-cheat-sheet
+                        - minimatch testing field - https://pthrasher.github.io/minimatch-test/
+                    */
+                    // Import from src directory without file extension at the end
+                    {
+                        "pattern": "*/**/!(*.*)",
+                        "group": "parent",
+                        "position": "before"
+                    },
+                    // Import from src directory with file extension at the end
+                    {
+                        "pattern": "*/**/*.*",
+                        "group": "parent",
+                        "position": "after"
+                    }
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "orderImportKind": "asc"
+                },
+                "named": { "enabled": true },
+                "warnOnUnassignedImports": true
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": ["*.jsx", "*.js"]
+        }
+    ]
+}

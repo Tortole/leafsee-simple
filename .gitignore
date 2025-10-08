@@ -107,6 +107,8 @@ celerybeat.pid
 env/
 venv/
 ENV/
+.env.bak/
+.venv.bak/
 env.bak/
 venv.bak/
 
@@ -139,3 +141,33 @@ dmypy.json
 
 # Node.js libs folder
 node_modules/
+
+# Temporary directories and files
+temp-*
+temp-*/
+
+# Media directory
+media/
+
+# >>>> ReactJS files and directories >>>>
+# dependencies
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# <<<< <<<<

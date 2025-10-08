@@ -1,0 +1,81 @@
+<!-- prettier-ignore -->
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} LeafSee {% endblock title%}
+
+{% block content %}
+<div
+    id="video-blocks-panel"
+    class="grid size-full gap-4 grid-repeat-auto-fit-[320px]"
+>
+    <div class="hidden">
+        <div
+            id="video-block-template"
+            class="flex cursor-pointer flex-col justify-start gap-1"
+            href="#"
+            onclick="redirectWithHref(event)"
+        >
+            <img
+                class="video-block-preview aspect-video w-full bg-gray-400 clip-polygon-right-[15px]"
+            />
+            <div class="flex w-full flex-col gap-1 px-3">
+                <div class="flex w-full flex-row flex-wrap justify-start gap-3">
+                    <img
+                        href="#"
+                        class="video-block-avatar video-block-link-channel clip-polygon-octagon size-12 bg-gray-400"
+                    />
+                    <div
+                        class="line-clamp-2 w-[calc(100%-48px-12px)] font-play text-lg leading-tight"
+                    >
+                        <span class="video-block-name">Name</span>
+                    </div>
+                </div>
+                <div class="flex w-full flex-col hover:*:opacity-100">
+                    <a
+                        href="#"
+                        class="video-block-nickname video-block-link-channel line-clamp-1 font-play text-sm opacity-70"
+                    >
+                        Nickname
+                    </a>
+                    <a
+                        href="#"
+                        class="video-block-username video-block-link-channel line-clamp-1 font-play text-xs opacity-70"
+                        >Username</a
+                    >
+                </div>
+                <div>
+                    <snap class="video-block-views font-play text-sm opacity-70"
+                        >Views</snap
+                    >
+                    <snap>-</snap>
+                    <snap
+                        class="video-block-timesince font-play text-sm opacity-70"
+                        >Timesince</snap
+                    >
+                    <snap>-</snap>
+                    <snap class="video-block-date font-play text-sm opacity-70"
+                        >Date</snap
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %}
+<!-- prettier-ignore -->
+{% endcomment %}
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+    var video_list_api_url = "{% url 'video-list' %}";
+    // !!!
+    var video_watch_url = "!!!";
+    // !!!
+    var author_channel_url = "!!!";
+
+    var video_block_views_text = "просмотров";
+    var video_block_timesince_text = "назад";
+</script>
+<script src="{% static 'videos/js/main.js' %}" type="text/javascript"></script>
+{% endblock %}

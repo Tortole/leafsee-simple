@@ -1,6 +1,25 @@
-version: "3.9"
-
 services:
+    nginx:
+        container_name: leafsee-simple-nginx
+        image: nginx:1.27.2-bookworm
+        restart: unless-stopped
+        volumes:
+            - ../../nginx_configs/dev/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ../../media:/app/media:ro
+            # Backend static files
+            - ../../backend/staticfiles:/app/staticback:ro
+            # General static files
+            - ../../static_general:/app/staticgen:ro
+        ports:
+            - 5435:80
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        deploy:
+            resources:
+                limits:
+                    cpus: "1"
+                    memory: 1G
+
     postgres:
         container_name: leafsee-simple-postgresql
         image: postgres:16.2-bookworm
@@ -13,7 +32,7 @@ services:
         volumes:
             - leafsee-simple-postgres-data:/var/lib/postgresql/data
         ports:
-            - "5433:5432"
+            - "5436:5432"
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U root -d pass"]
             interval: 10s
@@ -40,7 +59,7 @@ services:
         volumes:
             - leafsee-simple-pgadmin-data:/var/lib/pgadmin
         ports:
-            - "5440:80"
+            - "5437:80"
         deploy:
             resources:
                 limits:
