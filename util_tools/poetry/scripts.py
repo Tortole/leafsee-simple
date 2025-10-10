@@ -5,6 +5,9 @@ Project scripts for run through Poetry
 import sys
 import argparse
 import subprocess
+import time
+
+from .server_manager import ServerManager
 
 
 def manager():
@@ -51,6 +54,28 @@ def init():
     else:
         # Actions in development project
         subprocess.run(["poetry", "run", "pre-commit", "install"], check=False)
+
+
+def full_start():
+    manager = ServerManager()
+
+    print("Launching servers...")
+    manager.start_backend()
+    manager.start_frontend()
+
+    print(
+        "\n",
+        ">>>>> Open the website in the browser using the link http://localhost:5435",
+        "\n",
+        ">>>>> Press Ctrl+C to stop all servers",
+        "\n",
+        sep="",
+    )
+
+    # Time for servers to launch
+    time.sleep(2)
+
+    manager.monitor_output()
 
 
 def flake8():
