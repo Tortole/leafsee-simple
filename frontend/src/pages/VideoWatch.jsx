@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 import MainShell from "components/shells/mainShell/mainShell";
 import Videoplayer from "components/videoplayers/videoWatchPlayer";
+import Description from "components/videowatch/description";
 
 function loadVideo(videoId, setVideo) {
     /*
@@ -65,7 +66,7 @@ export default function VideoWatch() {
                     <div className="clip-polygon-right-1 aspect-video w-full">
                         {video && <Videoplayer video={video} />}
                     </div>
-                    <div>description</div>
+                    <div className="w-full">{video && <Description video={video} />}</div>
                     <div>comments</div>
                 </div>
                 <div>recommendation</div>
