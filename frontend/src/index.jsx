@@ -8,6 +8,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Main from "pages/Main";
+import VideoWatch from "pages/VideoWatch";
 import { AuthStatusProvider } from "services/authStatus";
 
 import "static/css/out.css";
@@ -17,8 +18,12 @@ axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 const router = createBrowserRouter([
     {
-        path: "",
+        path: "/",
         element: <Main />,
+    },
+    {
+        path: "/video/:videoId",
+        element: <VideoWatch />,
     },
 ]);
 
