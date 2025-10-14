@@ -1,7 +1,12 @@
 {
     "devDependencies": {
+        "lint-staged": "^15.4.3",
         "prettier": "3.2.5",
-        "prettier-plugin-tailwindcss": "0.5.13",
-        "tailwindcss": "3.4.3"
+        "prettier-plugin-tailwindcss": "0.5.13"
+    },
+    "lint-staged": {
+        "frontend/**/*.{js,jsx}": [
+            "npm --prefix frontend/ run eslint-fix"
+        ]
     }
 }

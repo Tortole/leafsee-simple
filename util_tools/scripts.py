@@ -5,34 +5,35 @@ Project scripts for run through Poetry
 import sys
 import argparse
 import subprocess
-from pathlib import Path
 
 
 def manager():
-    subprocess.run(["poetry", "run", "python", "manage.py", *sys.argv[1:]], check=False)
+    subprocess.run(
+        ["poetry", "run", "python", "backend/manage.py", *sys.argv[1:]], check=False
+    )
+
+
+def gunicorn():
+    subprocess.run(
+        ["poetry", "run", "gunicorn", "backend.configs.wsgi", *sys.argv[1:]],
+        check=False,
+    )
 
 
 def tailwind():
     subprocess.run(
-        [
-            "npx",
-            "tailwindcss",
-            "-i",
-            str(Path("apps/static/base/css/input.css")),
-            "-o",
-            str(Path("apps/static/base/css/out.css")),
-            *sys.argv[1:],
-        ],
-        shell=True,
+        ["npm", "run", "--prefix", "frontend", "t", *["--", *sys.argv[1:]]],
         check=False,
     )
 
 
 def full_migrate():
     subprocess.run(
-        ["poetry", "run", "python", "manage.py", "makemigrations"], check=False
+        ["poetry", "run", "python", "backend/manage.py", "makemigrations"], check=False
     )
-    subprocess.run(["poetry", "run", "python", "manage.py", "migrate"], check=False)
+    subprocess.run(
+        ["poetry", "run", "python", "backend/manage.py", "migrate"], check=False
+    )
 
 
 def init():
