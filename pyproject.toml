@@ -25,14 +25,15 @@ black = "^24.3.0"
 flake8 = "^7.0.0"
 
 [tool.poetry.scripts]
-m = "util_tools.scripts:manager"
-g = "util_tools.scripts:gunicorn"
-t = "util_tools.scripts:tailwind"
-full_migrate = "util_tools.scripts:full_migrate"
-init = "util_tools.scripts:init"
-lint = "util_tools.scripts:flake8"
-format = "util_tools.scripts:black"
-expreq = "util_tools.scripts:export_requirements"
+m = "util_tools.poetry.scripts:manager"
+g = "util_tools.poetry.scripts:gunicorn"
+s = "util_tools.poetry.scripts:full_start"
+t = "util_tools.poetry.scripts:tailwind"
+full-migrate = "util_tools.poetry.scripts:full_migrate"
+init = "util_tools.poetry.scripts:init"
+lint = "util_tools.poetry.scripts:flake8"
+format = "util_tools.poetry.scripts:black"
+expreq = "util_tools.poetry.scripts:export_requirements"
 
 [build-system]
 requires = ["poetry-core"]
