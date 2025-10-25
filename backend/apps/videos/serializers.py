@@ -9,6 +9,11 @@ from datetime import timedelta
 from .models import Video, determining_video_duration
 
 
+class TagListingField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.name
+
+
 class VideoSerializer(serializers.ModelSerializer):
     """
     DRF serializer for Video model
@@ -17,9 +22,11 @@ class VideoSerializer(serializers.ModelSerializer):
         author_username - CharField - author username
         author_nickname - CharField - author nickname
         author_avatar - ImageField - link to author avatar
+        author_subscribers_count - IntegerField - author subscribers count
         views_count - IntegerField - video views count
         likes_count - IntegerField - video likes count
         dislikes_count - IntegerField - video dislikes count
+        tags - TagListingField(RelatedField) - tag names list
 
         From Video model (by Meta):
             id - int - video id
@@ -30,7 +37,6 @@ class VideoSerializer(serializers.ModelSerializer):
             author - ForeignKey(LeafseeUser) - user who uploaded video
             upload_date - DateField - video upload date
             preview_image - ImageField - image that is displayed on block with link to video
-            tags - ManyToManyField(Tag, through=VideoTag) - links to video tags
 
             Writable:
                 - file
@@ -43,16 +49,20 @@ class VideoSerializer(serializers.ModelSerializer):
                 - duration
                 - author
                 - upload_date
-                - tags
     """
 
     author_username = serializers.CharField(source="author.username", read_only=True)
     author_nickname = serializers.CharField(source="author.nickname", read_only=True)
     author_avatar = serializers.ImageField(source="author.avatar", read_only=True)
+    author_subscribers_count = serializers.IntegerField(
+        source="author.subscribers.count", read_only=True
+    )
     views_count = serializers.IntegerField(source="auth_viewers.count", read_only=True)
     likes_count = serializers.IntegerField(source="likes.count", read_only=True)
     dislikes_count = serializers.IntegerField(source="dislikes.count", read_only=True)
     timesince = serializers.CharField(source="timesince_upload", read_only=True)
+
+    tags = TagListingField(many=True, read_only=True)
 
     class Meta:
         model = Video
@@ -61,10 +71,12 @@ class VideoSerializer(serializers.ModelSerializer):
             "author_username",
             "author_nickname",
             "author_avatar",
+            "author_subscribers_count",
             "views_count",
             "likes_count",
             "dislikes_count",
             "timesince",
+            "tags",
             # <<<< <<<<
             # >>>> Model field >>>>
             "id",
@@ -75,10 +87,9 @@ class VideoSerializer(serializers.ModelSerializer):
             "author",
             "upload_date",
             "preview_image",
-            "tags",
             # <<<< <<<<
         ]
-        read_only_fields = ["id", "duration", "author", "upload_date", "tags"]
+        read_only_fields = ["id", "duration", "author", "upload_date"]
 
     def create(self, validated_data):
         # Set video duration to zero to overwrite it later
