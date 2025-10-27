@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 import datetime
 
@@ -128,3 +129,14 @@ class Subscription(models.Model):
                 fields=["subscriber", "content_creator"], name="unique_subscriptions"
             )
         ]
+
+    def clean(self):
+        # Doesn't allow the user to subscribe to himself
+        if self.subscriber == self.content_creator:
+            raise ValidationError(
+                {"content_creator": "content_creator cannot be equal to subscriber"}
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
